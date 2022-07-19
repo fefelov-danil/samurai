@@ -1,17 +1,16 @@
 import React from 'react';
-import './App.css';
 import {BrowserRouter, Route} from "react-router-dom";
-import {Header} from "./components/Header/Header";
-import {Profile} from "./components/content/Profile/Profile";
-import {Dialogs} from "./components/content/Dialogs/Dialogs";
-import {News} from "./components/content/News/News";
-import {Music} from "./components/content/Music/Music";
-import {Settings} from "./components/content/Settings/Settings";
-import {State} from "./components/redux/State";
-import {Sidebar} from "./components/content/Sidebar/Sidebar";
+import {Header} from "components/header/Header";
+import {Profile} from "components/content/profile/Profile";
+import {Dialogs} from "components/content/dialogs/Dialogs";
+import {News} from "components/content/news/News";
+import {Music} from "components/content/music/Music";
+import {Settings} from "components/content/settings/Settings";
+import {State} from "components/redux/State";
+import {Sidebar} from "components/content/sidebar/Sidebar";
 
 
-function App() {
+export const App = () => {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -28,5 +27,3 @@ function App() {
         </BrowserRouter>
     );
 }
-
-export default App;

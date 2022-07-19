@@ -1,0 +1,18 @@
+.sidebarEl {
+    margin-bottom: 20px;
+}
+.sidebarFriends ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+}
+.sidebarFriend {
+    text-align: center;
+}
+img.ava {
+    max-width: 55px;
+    border-radius: 50%;
+}
+span.name {
+    font-size: 14px;
+}

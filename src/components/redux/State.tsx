@@ -1,50 +1,50 @@
 import { v1 } from "uuid";
 
-type PostDataType = {
+export type PostsType = {
     id: string
     message: string
     likesCount: number
 }
-type PersonsDataType = {
-    id: string
+export type PersonsType = {
+    id?: string
     imgSrc: string
     name: string
 }
-type MessageDataType = {
-    id: string
+export type MessagesType = {
+    id?: string
     imgSrc: string
     name: string
     text: string
 }
 
-type SidebarFriendsType = {
+export type SidebarFriendsType = {
     id: string
     imgSrc: string
     friend: string
 }
 
-type profilePageType = {
-    postData: PostDataType[]
+export type ProfilePageType = {
+    posts: Array<PostsType>
 }
 
-type dialogsPageType = {
-    personsData: PersonsDataType[],
-    messageData: MessageDataType[]
+export type DialogsPageType = {
+    persons: Array<PersonsType>
+    messages: Array<MessagesType>
 }
 
-type sidebarType = {
+export type SidebarType = {
     sidebarFriends: SidebarFriendsType[]
 }
 
 export type StateType = {
-    profilePage: profilePageType,
-    dialogsPage: dialogsPageType,
-    sidebar: sidebarType,
+    profilePage: ProfilePageType
+    dialogsPage: DialogsPageType
+    sidebar: SidebarType
 }
 
 export const State: StateType = {
     profilePage: {
-        postData: [
+        posts: [
             {id: v1(), message: 'Hey, why nobody me?', likesCount: 8},
             {id: v1(), message: 'It\'s our new program!', likesCount: 12},
             {id: v1(), message: 'Hey, why nobody me?', likesCount: 10},
@@ -52,7 +52,7 @@ export const State: StateType = {
         ],
     },
     dialogsPage: {
-        personsData: [
+        persons: [
             {id: v1(), imgSrc: 'https://innostudio.de/fileuploader/images/default-avatar.png', name: 'Дмитрий'},
             {id: v1(), imgSrc: 'https://innostudio.de/fileuploader/images/default-avatar.png', name: 'Антон'},
             {id: v1(), imgSrc: 'https://innostudio.de/fileuploader/images/default-avatar.png', name: 'Настя'},
@@ -60,7 +60,7 @@ export const State: StateType = {
             {id: v1(), imgSrc: 'https://innostudio.de/fileuploader/images/default-avatar.png', name: 'Анна'},
             {id: v1(), imgSrc: 'https://innostudio.de/fileuploader/images/default-avatar.png', name: 'Валера'},
         ],
-        messageData: [
+        messages: [
             {
                 id: v1(),
                 imgSrc: 'https://innostudio.de/fileuploader/images/default-avatar.png',
