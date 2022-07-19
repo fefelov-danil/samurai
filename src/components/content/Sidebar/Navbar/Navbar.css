@@ -1,0 +1,6 @@
+.navbar .item a {
+    color: #333;
+}
+.navbar .item a.active {
+    color: #df203d;
+}

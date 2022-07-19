@@ -1,0 +1,8 @@
+.sidebar {
+    grid-area: n;
+    padding: 15px;
+    background: #EEF6ED;
+}
+.sidebar-el {
+    margin-bottom: 20px;
+}
