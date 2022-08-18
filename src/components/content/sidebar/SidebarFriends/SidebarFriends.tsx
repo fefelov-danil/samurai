@@ -1,6 +1,6 @@
 import React from 'react';
 import s from "./SidebarFriends.module.css"
-import {SidebarFriendsType, StateType} from "components/redux/State";
+import {SidebarFriendsType, StateType} from "components/redux/state";
 
 export const SidebarFriends: React.FC<{sidebarFriends: SidebarFriendsType[]}> = (props) => {
     return (

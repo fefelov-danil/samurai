@@ -1,10 +1,26 @@
-import React from 'react';
+import React, {createRef, RefObject} from 'react';
 import s from './Dialogs.module.css'
 import {DialoguePerson} from "./dialogPerson/DialoguePerson";
 import {DialogMessage} from "./dialogMessage/DialogMessage";
-import {DialogsPageType} from "components/redux/State";
+import {DialogsPageType, StoreType} from "components/redux/state";
 
-export const Dialogs: React.FC<{ dialogsPage: DialogsPageType }> = (props) => {
+type DialogsPropsType = {
+    dialogsPage: DialogsPageType
+    newMessageText: string
+    Store: StoreType
+}
+
+export const Dialogs: React.FC<DialogsPropsType> = (props) => {
+
+    const newMessageElement = createRef<HTMLTextAreaElement>()
+
+    const onChangeHandler = (newMessageElement: RefObject<HTMLTextAreaElement>) => {
+        newMessageElement.current && props.Store.dialogsMessageOnChange(newMessageElement.current.value)
+    }
+
+    const onClickHandler = () => {
+        props.Store.addDialogsMessage()
+    }
 
     return (
         <>
@@ -19,6 +35,8 @@ export const Dialogs: React.FC<{ dialogsPage: DialogsPageType }> = (props) => {
                     {
                         props.dialogsPage.messages.map(m => <DialogMessage key={m.id} imgSrc={m.imgSrc} name={m.name} text={m.text}/> )
                     }
+                    <textarea onChange={() => onChangeHandler(newMessageElement)} ref={newMessageElement} value={props.newMessageText} placeholder='Our message...'></textarea>
+                    <button onClick={onClickHandler}>Send</button>
                 </div>
             </div>
         </>

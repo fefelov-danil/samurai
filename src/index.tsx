@@ -1,10 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import 'assets/css/reset.css'
-import 'assets/css/style.css';
-import {App} from 'App';
+import {
+    Store, StoreType,
+} from "components/redux/state";
+import ReactDOM from "react-dom";
+import {App} from "App";
+import React from "react";
 
-ReactDOM.render(
-    <App />,
-  document.getElementById('root')
-);
+export const render = (Store: StoreType) => {
+    ReactDOM.render(
+        <App State={Store.getState()}
+             Store={Store}/>,
+        document.getElementById('root')
+    );
+};
+
+Store.subscribe(() => render(Store))

@@ -2,12 +2,18 @@ import React from 'react';
 import s from './Posts.module.css'
 import {Post} from "./post/Post";
 import {SendPost} from "./sendPost/SendPost";
-import {PostsType, StateType} from "../../../redux/State";
+import {PostsType, StoreType} from "components/redux/state";
 
-export const Posts: React.FC<{postData: Array<PostsType>}> = (props) => {
+type PostsPropsType = {
+    postData: Array<PostsType>
+    newPostText: string
+    Store: StoreType
+}
+
+export const Posts: React.FC<PostsPropsType> = (props) => {
     return (
         <div className={s.posts}>
-            <SendPost/>
+            <SendPost Store={props.Store} newPostText={props.newPostText}/>
             {
                 props.postData.map( (p) => <Post key={p.id} message={p.message} likesCount={p.likesCount}/> )
             }

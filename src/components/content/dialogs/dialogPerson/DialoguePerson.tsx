@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './DialoguePerson.module.css'
 import {NavLink} from "react-router-dom";
-import {PersonsType} from "components/redux/State";
+import {PersonsType} from "components/redux/state";
 
 export const DialoguePerson: React.FC<PersonsType> = (props) => {
     return (
