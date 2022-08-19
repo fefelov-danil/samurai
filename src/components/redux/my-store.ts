@@ -1,61 +1,10 @@
 import {v1} from "uuid";
+import {ProfileActionsType, profileReducer} from "components/redux/profile-reducer";
+import {DialogsActionsType, dialogsReducer} from "components/redux/dialogs-reducer";
+import {SidebarActionsType, sidebarReducer} from "components/redux/sidebar-reducer";
+import {StoreType} from "components/redux/types";
 
-export type PostsType = {
-    id: string
-    message: string
-    likesCount: number
-}
-export type PersonsType = {
-    id?: string
-    imgSrc: string
-    name: string
-}
-export type MessagesType = {
-    id?: string
-    imgSrc: string
-    name: string
-    text: string
-}
-
-export type SidebarFriendsType = {
-    id: string
-    imgSrc: string
-    friend: string
-}
-
-export type ProfilePageType = {
-    posts: Array<PostsType>
-    newPostText: string
-}
-
-export type DialogsPageType = {
-    persons: Array<PersonsType>
-    messages: Array<MessagesType>
-    newMessageText: string
-}
-
-export type SidebarType = {
-    sidebarFriends: SidebarFriendsType[]
-}
-
-export type StateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogsPageType
-    sidebar: SidebarType
-}
-
-export type StoreType = {
-    _state: StateType
-    getState: () => StateType
-    _callSubscriber: (store: StoreType) => void
-    subscribe: (observer: () => void) => void
-    addPost: () => void
-    postTextareaOnChange: (value: string) => void
-    addDialogsMessage: () => void
-    dialogsMessageOnChange: (value: string) => void
-}
-
-export const Store: StoreType = {
+export const myStore: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -123,38 +72,22 @@ export const Store: StoreType = {
             ]
         }
     },
+    _callSubscriber(store: StoreType) {},
     getState() {
         return this._state
     },
-    _callSubscriber(store: StoreType) {},
+
     subscribe(observer: () => void) {
         observer()
         this._callSubscriber = observer
     },
-    addPost() {
-        this._state.profilePage.posts.push({id: v1(), message: this._state.profilePage.newPostText, likesCount: 0});
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber(this);
-    },
-    postTextareaOnChange(value: string) {
-        this._state.profilePage.newPostText = value;
-        this._callSubscriber(this);
-    },
-    addDialogsMessage() {
-        this._state.dialogsPage.messages.push(
-            {
-                id: v1(),
-                imgSrc: 'https://innostudio.de/fileuploader/images/default-avatar.png',
-                name: 'Я',
-                text: this._state.dialogsPage.newMessageText
-            }
-        );
-        this._state.dialogsPage.newMessageText = '';
-        this._callSubscriber(this);
-    },
-    dialogsMessageOnChange(value: string) {
-        this._state.dialogsPage.newMessageText = value;
-        this._callSubscriber(this);
+    dispatch(action) {
+        this._state.profilePage = profileReducer(this.getState().profilePage, action as ProfileActionsType)
+        this._state.dialogsPage = dialogsReducer(this.getState().dialogsPage, action as DialogsActionsType)
+        this.getState().sidebar = sidebarReducer(this.getState().sidebar, action as SidebarActionsType)
+        this._callSubscriber(this)
     }
-
 }
+
+// @ts-ignore
+window.Store = myStore

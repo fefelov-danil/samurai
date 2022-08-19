@@ -1,37 +1,33 @@
-import React, {ChangeEvent, createRef} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './SendPost.module.css'
-import {StoreType} from "components/redux/state";
+import {addPostAC, postTextareaOnChangeAC} from "components/redux/profile-reducer";
+import {ActionsType} from "components/redux/types";
+import {Dispatch} from "redux";
+import {DispatchType} from "components/redux/store";
 
 type SendPostType = {
+    dispatch: Dispatch<DispatchType>
     newPostText: string
-    Store: StoreType
 }
 
 export const SendPost: React.FC<SendPostType> = (props) => {
 
-    let newPostElement = createRef<HTMLTextAreaElement>();
-
-    const onClickHandler = () => {
-        if (newPostElement.current) {
-            props.Store.addPost();
-        }
+    const onChangeTextPost = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch(postTextareaOnChangeAC(e.currentTarget.value))
+    }
+    const onClickAddPost = () => {
+        props.dispatch(addPostAC())
+        props.dispatch(postTextareaOnChangeAC(''))
     }
 
-    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        if (newPostElement.current) {
-            newPostElement.current.value = e.currentTarget.value
-            props.Store.postTextareaOnChange(e.currentTarget.value)
-        }
-    }
     return (
         <div className={s.write}>
             <h3>My posts</h3>
             <textarea
-                ref={newPostElement}
                 value={props.newPostText}
-                onChange={onChangeHandler}
+                onChange={onChangeTextPost}
                 placeholder='your news...' />
-            <button onClick={onClickHandler}>Send</button>
+            <button onClick={onClickAddPost}>Send</button>
         </div>
     )
 }

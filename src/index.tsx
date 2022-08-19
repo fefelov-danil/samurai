@@ -1,16 +1,20 @@
-import {
-    Store, StoreType,
-} from "components/redux/state";
 import ReactDOM from "react-dom";
 import {App} from "App";
 import React from "react";
+import {RootStateType, store} from "components/redux/store";
 
-export const render = (Store: StoreType) => {
+export const render = (state: RootStateType) => {
     ReactDOM.render(
-        <App State={Store.getState()}
-             Store={Store}/>,
+        <React.StrictMode>
+            <App state={state}
+                 dispatch={store.dispatch.bind(store)}/>
+        </React.StrictMode>,
         document.getElementById('root')
     );
 };
 
-Store.subscribe(() => render(Store))
+render(store.getState())
+
+store.subscribe(() => {
+    render(store.getState())
+})
