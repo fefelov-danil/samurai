@@ -11,8 +11,8 @@ export type StoreType = {
     dispatch: (action: ActionsType) => void
 }
 export type StateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogsPageType
+    profile: ProfilePageType
+    dialogs: DialogsPageType
     sidebar: SidebarType
 }
 export type ProfilePageType = {

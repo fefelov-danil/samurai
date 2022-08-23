@@ -9,13 +9,11 @@ import {News} from "components/content/news/News";
 import {Music} from "components/content/music/Music";
 import {Settings} from "components/content/settings/Settings";
 import {Sidebar} from "components/content/sidebar/Sidebar";
-import {ActionsType, StateType} from "components/redux/types";
-import {DispatchType, RootStateType} from "components/redux/store";
-import {Dispatch} from "redux";
+import {StoreType} from "components/redux/store";
+import {DialogsContainer} from "components/content/dialogs/DialogsContainer";
 
 type AppPropsType = {
-    state: RootStateType
-    dispatch: Dispatch<DispatchType>
+    store: StoreType
 }
 
 export const App: React.FC<AppPropsType> = (props) => {
@@ -23,17 +21,13 @@ export const App: React.FC<AppPropsType> = (props) => {
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
-                <Sidebar sidebar={props.state.sidebar}/>
+                <Sidebar sidebar={props.store.getState().sidebar}/>
                 <div className="app-wrapper-content">
-                    <Route path='/messages' component={ () => <Dialogs
-                        dialogsPage={props.state.dialogs}
-                        newMessageText={props.state.dialogs.newMessageText}
-                        dispatch={props.dispatch}
+                    <Route path='/messages' component={ () => <DialogsContainer
+                        store={props.store}
                     />} />
                     <Route path='/profile' component={ () => <Profile
-                        profilePage={props.state.profile}
-                        newPostText={props.state.profile.newPostText}
-                        dispatch={props.dispatch}
+                        store={props.store}
                     />}/>
                     <Route path='/news' component={ () => <News/>}/>
                     <Route path='/music' component={ () => <Music/>}/>

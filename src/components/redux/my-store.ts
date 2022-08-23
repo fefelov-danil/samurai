@@ -6,7 +6,7 @@ import {StoreType} from "components/redux/types";
 
 export const myStore: StoreType = {
     _state: {
-        profilePage: {
+        profile: {
             posts: [
                 {id: v1(), message: 'Hey, why nobody me?', likesCount: 8},
                 {id: v1(), message: 'It\'s our new program!', likesCount: 12},
@@ -15,7 +15,7 @@ export const myStore: StoreType = {
             ],
             newPostText: '',
         },
-        dialogsPage: {
+        dialogs: {
             persons: [
                 {id: v1(), imgSrc: 'https://innostudio.de/fileuploader/images/default-avatar.png', name: 'Дмитрий'},
                 {id: v1(), imgSrc: 'https://innostudio.de/fileuploader/images/default-avatar.png', name: 'Антон'},
@@ -82,8 +82,8 @@ export const myStore: StoreType = {
         this._callSubscriber = observer
     },
     dispatch(action) {
-        this._state.profilePage = profileReducer(this.getState().profilePage, action as ProfileActionsType)
-        this._state.dialogsPage = dialogsReducer(this.getState().dialogsPage, action as DialogsActionsType)
+        this._state.profile = profileReducer(this.getState().profile, action as ProfileActionsType)
+        this._state.dialogs = dialogsReducer(this.getState().dialogs, action as DialogsActionsType)
         this.getState().sidebar = sidebarReducer(this.getState().sidebar, action as SidebarActionsType)
         this._callSubscriber(this)
     }
