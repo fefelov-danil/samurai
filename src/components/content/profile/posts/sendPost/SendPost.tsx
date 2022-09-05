@@ -1,13 +1,13 @@
 import React, {ChangeEvent} from 'react';
 import s from './SendPost.module.css'
 
-type SendPostType = {
+type SendPostPropsType = {
     onChangeTextPost: (value: string) => void
     onClickAddPost: () => void
     postText: string
 }
 
-export const SendPost: React.FC<SendPostType> = (props) => {
+export const SendPost: React.FC<SendPostPropsType> = (props) => {
 
     const onChangeTextPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.onChangeTextPost(e.currentTarget.value)

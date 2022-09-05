@@ -4,7 +4,6 @@ import 'assets/css/style.css';
 import {BrowserRouter, Route} from "react-router-dom";
 import {Header} from "components/header/Header";
 import {Profile} from "components/content/profile/Profile";
-import {Dialogs} from "components/content/dialogs/Dialogs";
 import {News} from "components/content/news/News";
 import {Music} from "components/content/music/Music";
 import {Settings} from "components/content/settings/Settings";
@@ -23,12 +22,8 @@ export const App: React.FC<AppPropsType> = (props) => {
                 <Header/>
                 <Sidebar sidebar={props.store.getState().sidebar}/>
                 <div className="app-wrapper-content">
-                    <Route path='/messages' component={ () => <DialogsContainer
-                        store={props.store}
-                    />} />
-                    <Route path='/profile' component={ () => <Profile
-                        store={props.store}
-                    />}/>
+                    <Route path='/messages' component={ () => <DialogsContainer/>} />
+                    <Route path='/profile' component={ () => <Profile/>}/>
                     <Route path='/news' component={ () => <News/>}/>
                     <Route path='/music' component={ () => <Music/>}/>
                     <Route path='/settings' component={ () => <Settings/>}/>
