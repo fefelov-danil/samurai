@@ -1,7 +1,7 @@
 import React from 'react';
 import 'assets/css/reset.css'
 import 'assets/css/style.css';
-import {Header} from "components/header/Header";
+import {Header} from "common/header/Header";
 import {Sidebar} from "features/sidebar/Sidebar";
 import {Pages} from "common/routes/Pages";
 

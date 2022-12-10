@@ -1,7 +1,6 @@
-import {SidebarType} from "components/redux/types";
 import {v1} from "uuid";
 
-const initialState: SidebarType = {
+const initialState = {
     sidebarFriends: [
         {id: v1(), imgSrc: "https://innostudio.de/fileuploader/images/default-avatar.png", friend: "Настя"},
         {id: v1(), imgSrc: "https://innostudio.de/fileuploader/images/default-avatar.png", friend: "Дима"},
@@ -9,8 +8,17 @@ const initialState: SidebarType = {
     ]
 }
 
-export const sidebarReducer = (state: SidebarType = initialState, action: SidebarActionsType) => {
+export const sidebarReducer = (state: InitialStateType = initialState, action: SidebarActionsType): InitialStateType => {
     return state
 }
 
+// Types
+type InitialStateType = {
+    sidebarFriends: SidebarFriendsType[]
+}
+type SidebarFriendsType = {
+    id: string
+    imgSrc: string
+    friend: string
+}
 export type SidebarActionsType = {}

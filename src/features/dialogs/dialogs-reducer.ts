@@ -1,7 +1,6 @@
 import {v1} from "uuid";
-import {DialogsPageType} from "components/redux/types";
 
-const initialState: DialogsPageType = {
+const initialState = {
     persons: [
         {id: v1(), imgSrc: 'https://innostudio.de/fileuploader/images/default-avatar.png', name: 'Дмитрий'},
         {id: v1(), imgSrc: 'https://innostudio.de/fileuploader/images/default-avatar.png', name: 'Антон'},
@@ -51,7 +50,7 @@ const initialState: DialogsPageType = {
     newMessageText: '',
 }
 
-export const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsActionsType) => {
+export const dialogsReducer = (state: InitialStateType = initialState, action: DialogsActionsType): InitialStateType => {
     switch (action.type) {
         case "ADD-DIALOGS-MESSAGE":
             const newMessage = {
@@ -67,11 +66,30 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Di
     return state
 }
 
-// Action Creators
+// Actions
 export const addDialogsMessageAC = () => ({type: 'ADD-DIALOGS-MESSAGE'} as const)
 export const dialogsMessageOnChangeAC = (text: string) => ({type: 'DIALOGS-MESSAGE-ONCHANGE', text} as const)
 
-// Types Action
-export type DialogsActionsType = AddDialogsMessageAT | DialogsMessageOnChangeAT
-type AddDialogsMessageAT = ReturnType<typeof addDialogsMessageAC>
-type DialogsMessageOnChangeAT = ReturnType<typeof dialogsMessageOnChangeAC>
+
+// Types
+type InitialStateType = {
+    persons: Array<PersonsType>
+    messages: Array<MessagesType>
+    newMessageText: string
+}
+export type PersonsType = {
+    id?: string
+    imgSrc: string
+    name: string
+}
+export type MessagesType = {
+    id?: string
+    imgSrc: string
+    name: string
+    text: string
+}
+export type DialogsActionsType =
+  | ReturnType<typeof addDialogsMessageAC>
+  | ReturnType<typeof dialogsMessageOnChangeAC>
+
+
