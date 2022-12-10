@@ -1,19 +1,22 @@
 import React from 'react';
 import s from './Posts.module.css'
 import {Post} from "./post/Post";
-import {SendPostContainer} from "components/content/profile/posts/sendPost/SendPostContainer";
-import {PostsType} from "components/redux/types";
+import {useAppSelector} from "utils/hooks";
+import {SendPost} from "components/content/profile/posts/sendPost/SendPost";
 
-type PostsPropsType = {
-    posts: Array<PostsType>
-}
+export const Posts = () => {
+  const posts = useAppSelector(state => state.profile.posts)
 
-export const Posts: React.FC<PostsPropsType> = (props) => {
     return (
         <div className={s.posts}>
-            <SendPostContainer/>
+            <SendPost/>
             {
-                props.posts.map( (p) => <Post key={p.id} message={p.message} likesCount={p.likesCount}/> )
+                posts.map(post => {
+                  return <Post
+                    key={post.id}
+                    message={post.message}
+                    likesCount={post.likesCount}/>
+                } )
             }
         </div>
     )

@@ -5,8 +5,7 @@ import logo from 'assets/images/logo.png';
 export const Header = () => {
     return (
         <header className={s.header}>
-            <img
-                src={logo} alt=""/>
+            <img src={logo} alt=""/>
         </header>
     )
 }

@@ -1,24 +1,25 @@
 import React from 'react';
 import s from "./Navbar.module.css";
 import {NavLink} from "react-router-dom";
+import {PATHS} from "common/routes/Pages";
 
 export const Navbar = () => {
     return (
         <nav className={`${s.sidebarEl} ${s.navbar}`}>
             <div className={s.item}>
-                <NavLink to="/profile">Профиль</NavLink>
+                <NavLink to={PATHS.PROFILE}>Профиль</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to="/messages">Сообщения</NavLink>
+                <NavLink to={PATHS.MESSAGES}>Сообщения</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to="/news">Новости</NavLink>
+                <NavLink to={PATHS.NEWS}>Новости</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to="/music">Музыка</NavLink>
+                <NavLink to={PATHS.MUSIC}>Музыка</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to="/settings">Настройки</NavLink>
+                <NavLink to={PATHS.SETTINGS}>Настройки</NavLink>
             </div>
         </nav>
     )

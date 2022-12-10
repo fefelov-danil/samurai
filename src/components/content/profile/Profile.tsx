@@ -1,12 +1,12 @@
 import React from 'react';
 import {ProfileInfo} from "./profileInfo/ProfileInfo";
-import {PostsContainer} from "components/content/profile/posts/PostsContainer";
+import {Posts} from "components/content/profile/posts/Posts";
 
 export const Profile = () => {
     return (
         <>
             <ProfileInfo/>
-            <PostsContainer />
+            <Posts />
         </>
     )
 }

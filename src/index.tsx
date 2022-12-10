@@ -1,22 +1,17 @@
-import ReactDOM from "react-dom";
-import {App} from "App";
-import React from "react";
-import {RootStateType, store} from "components/redux/store";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import {App} from "app/App";
+import {store} from "app/store";
 import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
 
-export const render = () => {
-    ReactDOM.render(
-        <React.StrictMode>
-            <Provider store={store}>
-                <App store={store}/>
-            </Provider>
-        </React.StrictMode>,
-        document.getElementById('root')
-    );
-};
 
-render()
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
-store.subscribe(() => {
-    render()
-})
+root.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <App/>
+    </BrowserRouter>
+  </Provider>
+)
