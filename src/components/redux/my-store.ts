@@ -1,7 +1,7 @@
 import {v1} from "uuid";
-import {ProfileActionsType, profileReducer} from "components/redux/profile-reducer";
-import {DialogsActionsType, dialogsReducer} from "components/redux/dialogs-reducer";
-import {SidebarActionsType, sidebarReducer} from "components/redux/sidebar-reducer";
+import {ProfileActionsType, profileReducer} from "features/profile/profile-reducer";
+import {DialogsActionsType, dialogsReducer} from "features/dialogs/dialogs-reducer";
+import {SidebarActionsType, sidebarReducer} from "features/sidebar/sidebar-reducer";
 import {StoreType} from "components/redux/types";
 
 export const myStore: StoreType = {

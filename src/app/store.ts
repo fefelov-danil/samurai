@@ -1,7 +1,7 @@
 import {AnyAction, applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
-import {dialogsReducer} from "components/redux/dialogs-reducer";
-import {profileReducer} from "components/redux/profile-reducer";
-import {sidebarReducer} from "components/redux/sidebar-reducer";
+import {dialogsReducer} from "features/dialogs/dialogs-reducer";
+import {profileReducer} from "features/profile/profile-reducer";
+import {sidebarReducer} from "features/sidebar/sidebar-reducer";
 import thunk, {ThunkDispatch} from "redux-thunk";
 
 const rootReducer = combineReducers({

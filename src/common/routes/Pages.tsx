@@ -1,10 +1,10 @@
 import React from 'react';
 import {Route, Routes} from "react-router-dom";
-import {Profile} from "components/content/profile/Profile";
-import {News} from "components/content/news/News";
-import {Music} from "components/content/music/Music";
-import {Settings} from "components/content/settings/Settings";
-import {Dialogs} from "components/content/dialogs/Dialogs";
+import {Profile} from "features/profile/Profile";
+import {News} from "features/news/News";
+import {Music} from "features/music/Music";
+import {Settings} from "features/settings/Settings";
+import {Dialogs} from "features/dialogs/Dialogs";
 
 export const PATHS = {
   MESSAGES: '/messages',

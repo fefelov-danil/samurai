@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './Post.module.css'
+import s from 'features/profile/posts/post/Post.module.css'
 import ava from 'assets/images/ava.jpg'
 
 type MessagePropsType = {

@@ -1,9 +1,9 @@
 import React, {ChangeEvent} from 'react';
-import s from './Dialogs.module.css'
-import {DialoguePerson} from "./dialogPerson/DialoguePerson";
-import {DialogMessage} from "./dialogMessage/DialogMessage";
+import s from 'features/dialogs/Dialogs.module.css'
+import {DialoguePerson} from "features/dialogs/dialogPerson/DialoguePerson";
+import {DialogMessage} from "features/dialogs/dialogMessage/DialogMessage";
 import {useAppDispatch, useAppSelector} from "utils/hooks";
-import {addDialogsMessageAC, dialogsMessageOnChangeAC} from "components/redux/dialogs-reducer";
+import {addDialogsMessageAC, dialogsMessageOnChangeAC} from "features/dialogs/dialogs-reducer";
 
 export const Dialogs = () => {
   const dispatch = useAppDispatch()

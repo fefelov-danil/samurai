@@ -2,7 +2,7 @@ import React from 'react';
 import 'assets/css/reset.css'
 import 'assets/css/style.css';
 import {Header} from "components/header/Header";
-import {Sidebar} from "components/content/sidebar/Sidebar";
+import {Sidebar} from "features/sidebar/Sidebar";
 import {Pages} from "common/routes/Pages";
 
 export const App = () => {

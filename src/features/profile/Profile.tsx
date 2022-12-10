@@ -1,6 +1,6 @@
 import React from 'react';
-import {ProfileInfo} from "./profileInfo/ProfileInfo";
-import {Posts} from "components/content/profile/posts/Posts";
+import {ProfileInfo} from "features/profile/profileInfo/ProfileInfo";
+import {Posts} from "features/profile/posts/Posts";
 
 export const Profile = () => {
     return (

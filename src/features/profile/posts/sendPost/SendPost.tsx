@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react';
-import s from './SendPost.module.css'
+import s from 'features/profile/posts/sendPost/SendPost.module.css'
 import {useAppDispatch, useAppSelector} from "utils/hooks";
-import {addPostAC, postTextareaOnChangeAC} from "components/redux/profile-reducer";
+import {addPostAC, postTextareaOnChangeAC} from "features/profile/profile-reducer";
 
 export const SendPost = () => {
   const dispatch = useAppDispatch()

@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './DialoguePerson.module.css'
+import s from 'features/dialogs/dialogPerson/DialoguePerson.module.css'
 import {NavLink} from "react-router-dom";
 import {PersonsType} from "components/redux/types";
 

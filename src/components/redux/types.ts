@@ -1,7 +1,7 @@
 // Types Store
-import {ProfileActionsType} from "components/redux/profile-reducer";
-import {DialogsActionsType} from "components/redux/dialogs-reducer";
-import {SidebarActionsType} from "components/redux/sidebar-reducer";
+import {ProfileActionsType} from "features/profile/profile-reducer";
+import {DialogsActionsType} from "features/dialogs/dialogs-reducer";
+import {SidebarActionsType} from "features/sidebar/sidebar-reducer";
 
 export type StoreType = {
     _state: StateType

@@ -1,5 +1,5 @@
 import React from 'react';
-import s from "./SidebarFriends.module.css"
+import s from "features/sidebar/SidebarFriends/SidebarFriends.module.css"
 import {useAppSelector} from "utils/hooks";
 
 export const SidebarFriends = () => {
