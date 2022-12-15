@@ -1,0 +1,48 @@
+.user {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #dedede;
+}
+.user:last-of-type {
+  border-bottom: 0;
+}
+.user h1 {
+  margin-bottom: 40px;
+}
+.avatarAndFollow {
+  position: relative;
+  width: 120px;
+}
+.avatarAndFollow img {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+.avatarAndFollow .followBtn {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 5px;
+}
+.avatar {
+  width: 120px;
+  height: 120px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+.aboutUser {
+  width: calc(100% - 150px);
+}
+.aboutUser p.name {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+.aboutUser p.location {
+  font-style: italic;
+  margin-bottom: 5px;
+}
