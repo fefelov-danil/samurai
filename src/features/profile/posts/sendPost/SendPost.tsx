@@ -1,7 +1,9 @@
 import React, {ChangeEvent} from 'react';
-import s from 'features/profile/posts/sendPost/SendPost.module.css'
+import s from './SendPost.module.css'
 import {useAppDispatch, useAppSelector} from "utils/hooks";
 import {addPostAC, postTextareaOnChangeAC} from "features/profile/profile-reducer";
+import {Textarea} from "common/textarea/Textarea";
+import {Button} from "common/button/Button";
 
 export const SendPost = () => {
   const dispatch = useAppDispatch()
@@ -18,11 +20,11 @@ export const SendPost = () => {
   return (
     <div className={s.write}>
       <h3>My posts</h3>
-      <textarea
+      <Textarea
         value={postText}
         onChange={onChangeTextPostHandler}
         placeholder='your news...'/>
-      <button onClick={onClickAddPostHandler}>Send</button>
+      <Button onClick={onClickAddPostHandler}>Send</Button>
     </div>
   )
 }
