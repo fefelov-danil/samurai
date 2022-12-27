@@ -1,24 +1,28 @@
 .profileInfo {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
 }
+
 .profileInfo img {
-    width: 110px;
+  width: 110px;
 }
+
 .profileAbout {
-    width: calc(100% - 130px);
+  width: calc(100% - 130px);
 }
+
 p.name {
-    font-family: 'Oswald', sans-serif;
-    font-size: 24px;
-    font-weight: 200;
-    line-height: 1;
-    margin-bottom: 12px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 24px;
+  font-weight: 200;
+  line-height: 1;
+  margin-bottom: 12px;
 }
+
 p.about {
-    font-size: 15px;
-    margin-bottom: 0;
+  font-size: 15px;
+  margin-bottom: 0;
 }

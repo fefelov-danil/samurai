@@ -1,5 +1,5 @@
 .header {
-    grid-area: h;
-    padding: 5px 15px;
-    background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+  grid-area: h;
+  padding: 5px 15px;
+  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
 }

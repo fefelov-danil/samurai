@@ -4,15 +4,15 @@ const usersInitialState = {
 
 export const usersReducer =
   (state: UsersInitialStateType = usersInitialState, action: UsersActionsType): UsersInitialStateType => {
-  switch (action.type) {
-    case "users/SET-USERS":
-      return {...state, users: action.users}
-    case "users/FOLLOWED":
-      return { ...state, users: state.users.map(u => u.id === action.userId ? { ...u, followed: !u.followed } : u) }
-    default:
-      return state
+    switch (action.type) {
+      case "users/SET-USERS":
+        return {...state, users: action.users}
+      case "users/FOLLOWED":
+        return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: !u.followed} : u)}
+      default:
+        return state
+    }
   }
-}
 
 export const setUsersAC = (users: UserType[]) => {
   return {type: 'users/SET-USERS', users} as const

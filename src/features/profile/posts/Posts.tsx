@@ -7,17 +7,17 @@ import {SendPost} from "features/profile/posts/sendPost/SendPost";
 export const Posts = () => {
   const posts = useAppSelector(state => state.profile.posts)
 
-    return (
-        <div className={s.posts}>
-            <SendPost/>
-            {
-                posts.map(post => {
-                  return <Post
-                    key={post.id}
-                    message={post.message}
-                    likesCount={post.likesCount}/>
-                } )
-            }
-        </div>
-    )
+  return (
+    <div className={s.posts}>
+      <SendPost/>
+      {
+        posts.map(post => {
+          return <Post
+            key={post.id}
+            message={post.message}
+            likesCount={post.likesCount}/>
+        })
+      }
+    </div>
+  )
 }

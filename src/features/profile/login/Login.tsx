@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Login.module.css'
 import {SubmitHandler, useForm} from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 import {Button} from "common/button/Button";
 import {loginSchema} from "utils/schemas/loginValidation";
 import {InputText} from "common/inputText/InputText";

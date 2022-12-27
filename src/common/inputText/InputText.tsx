@@ -3,10 +3,8 @@ import React, {ChangeEvent, DetailedHTMLProps, forwardRef, InputHTMLAttributes, 
 import s from 'common/inputText/InputText.module.css'
 
 // Пропсы стандартного инпута
-type DefaultInputTextPropsType = DetailedHTMLProps<
-  InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->
+type DefaultInputTextPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement>
 
 type InputTextPropsType = DefaultInputTextPropsType & {
   onChangeText?: (value: string) => void

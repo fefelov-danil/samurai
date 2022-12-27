@@ -10,10 +10,8 @@ import s from './InputPassword.module.css'
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 
 // Пропсы стандартного инпута
-type DefaultInputPasswordPropsType = DetailedHTMLProps<
-  InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->
+type DefaultInputPasswordPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement>
 
 type InputPasswordPropsType = DefaultInputPasswordPropsType & {
   onChangePassword?: (value: string) => void
@@ -61,13 +59,13 @@ export const InputPassword = forwardRef<Ref, InputPasswordPropsType>(({
       />
       <span onClick={() => setShowPass(!showPass)}>
         {showPass ? (
-          <FaEyeSlash />
+          <FaEyeSlash/>
         ) : (
-          <FaEye />
+          <FaEye/>
         )}
       </span>
 
-      <br />
+      <br/>
       {error && <span className={finalSpanClassName}>{error}</span>}
     </p>
   )

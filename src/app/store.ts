@@ -7,15 +7,15 @@ import {usersReducer} from "features/users/users-reducer";
 import {configureStore} from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
-    profile: profileReducer,
-    dialogs: dialogsReducer,
-    sidebar: sidebarReducer,
-    users: usersReducer
+  profile: profileReducer,
+  dialogs: dialogsReducer,
+  sidebar: sidebarReducer,
+  users: usersReducer
 })
 
 export const store = configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk)
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk)
 })
 
 export type RootState = ReturnType<typeof store.getState>

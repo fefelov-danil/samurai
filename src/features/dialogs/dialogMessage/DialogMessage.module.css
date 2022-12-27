@@ -1,34 +1,39 @@
 .dialogsMessage {
-    display: grid;
-    grid-template-columns: 90px calc(100% - 90px - 1em);
-    gap: 1em;
-    align-items: flex-end;
-    margin-bottom: 25px;
+  display: grid;
+  grid-template-columns: 90px calc(100% - 90px - 1em);
+  gap: 1em;
+  align-items: flex-end;
+  margin-bottom: 25px;
 }
+
 .dialogsMessageAvaName {
-    text-align: center;
+  text-align: center;
 }
+
 .dialogsMessageAvaName img {
-    max-width: 70px;
-    border-radius: 50%;
-    margin-bottom: 5px;
+  max-width: 70px;
+  border-radius: 50%;
+  margin-bottom: 5px;
 }
+
 .dialogsMessageAvaName p {
-    font-size: 14px;
-    margin-bottom: 0;
+  font-size: 14px;
+  margin-bottom: 0;
 }
+
 .dialogsMessageText {
-    position: relative;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px 8px 8px 0;
+  position: relative;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px 8px 8px 0;
 }
+
 .dialogsMessageText:before {
-    content: '';
-    position: absolute;
-    left: -25px;
-    bottom: 0;
-    width: 25px;
-    height: 25px;
-    background: radial-gradient(circle at 0 0, rgba(0, 0, 0, 0) 25px, rgba(255, 255, 255, 1) 0);
+  content: '';
+  position: absolute;
+  left: -25px;
+  bottom: 0;
+  width: 25px;
+  height: 25px;
+  background: radial-gradient(circle at 0 0, rgba(0, 0, 0, 0) 25px, rgba(255, 255, 255, 1) 0);
 }

@@ -1,9 +1,11 @@
 .sidebarEl {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
+
 .navbar .item a {
-    color: #333;
+  color: #333;
 }
+
 .navbar .item a.active {
-    color: #df203d;
+  color: #df203d;
 }

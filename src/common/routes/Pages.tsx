@@ -21,7 +21,7 @@ export const PATHS = {
 export const Pages = () => {
   return (
     <Routes>
-      <Route path={PATHS.MESSAGES} element={<Dialogs/>} />
+      <Route path={PATHS.MESSAGES} element={<Dialogs/>}/>
       <Route path={PATHS.PROFILE} element={<Profile/>}/>
       <Route path={PATHS.NEWS} element={<News/>}/>
       <Route path={PATHS.MUSIC} element={<Music/>}/>

@@ -1,8 +1,9 @@
 .write textarea {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
+
 .write button {
-    display: block;
-    margin-left: auto;
-    margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-bottom: 20px;
 }
