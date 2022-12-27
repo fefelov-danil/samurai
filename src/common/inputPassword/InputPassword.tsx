@@ -1,15 +1,13 @@
 import React, {
   ChangeEvent,
-  DetailedHTMLProps,
+  DetailedHTMLProps, forwardRef,
   InputHTMLAttributes,
   KeyboardEvent,
   useState,
 } from 'react'
 
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-
 import s from './InputPassword.module.css'
+import {FaEye, FaEyeSlash} from "react-icons/fa";
 
 // Пропсы стандартного инпута
 type DefaultInputPasswordPropsType = DetailedHTMLProps<
@@ -24,7 +22,9 @@ type InputPasswordPropsType = DefaultInputPasswordPropsType & {
   spanClassName?: string
 }
 
-export const InputPassword: React.FC<InputPasswordPropsType> = ({
+type Ref = HTMLInputElement;
+
+export const InputPassword = forwardRef<Ref, InputPasswordPropsType>(({
   type,
   onChange,
   onChangePassword,
@@ -34,7 +34,7 @@ export const InputPassword: React.FC<InputPasswordPropsType> = ({
   className,
   spanClassName,
   ...restProps
-}) => {
+}, ref) => {
   const [showPass, setShowPass] = useState(false)
 
   const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +52,7 @@ export const InputPassword: React.FC<InputPasswordPropsType> = ({
   return (
     <p className={s.inputContainer}>
       <input
+        ref={ref}
         type={showPass ? 'text' : 'password'}
         onChange={onChangeCallback}
         onKeyDown={onKeyPressCallback}
@@ -60,9 +61,9 @@ export const InputPassword: React.FC<InputPasswordPropsType> = ({
       />
       <span onClick={() => setShowPass(!showPass)}>
         {showPass ? (
-          <VisibilityOffIcon sx={{ color: '#333333', fontSize: 20 }} />
+          <FaEyeSlash />
         ) : (
-          <RemoveRedEyeIcon sx={{ color: '#333333', fontSize: 20 }} />
+          <FaEye />
         )}
       </span>
 
@@ -70,4 +71,4 @@ export const InputPassword: React.FC<InputPasswordPropsType> = ({
       {error && <span className={finalSpanClassName}>{error}</span>}
     </p>
   )
-}
+})

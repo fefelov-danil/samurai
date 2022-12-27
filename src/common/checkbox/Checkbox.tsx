@@ -1,4 +1,4 @@
-import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes } from 'react'
+import React, {ChangeEvent, DetailedHTMLProps, forwardRef, InputHTMLAttributes} from 'react'
 
 import s from 'common/checkbox/Checkbox.module.css'
 
@@ -13,7 +13,9 @@ type CheckboxPropsType = DefaultInputPropsType & {
   spanClassName?: string
 }
 
-export const Checkbox: React.FC<CheckboxPropsType> = ({
+type Ref = HTMLInputElement;
+
+export const Checkbox = forwardRef<Ref, CheckboxPropsType>(({
   type,
   onChange,
   onChangeChecked,
@@ -21,7 +23,7 @@ export const Checkbox: React.FC<CheckboxPropsType> = ({
   spanClassName,
   children,
   ...restProps
-}) => {
+}, ref) => {
   const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
     onChange && onChange(e)
     onChangeChecked && onChangeChecked(e.currentTarget.checked)
@@ -32,6 +34,7 @@ export const Checkbox: React.FC<CheckboxPropsType> = ({
   return (
     <label className={s.labelCheckbox}>
       <input
+        ref={ref}
         type={'checkbox'}
         onChange={onChangeCallback}
         className={finalInputClassName}
@@ -41,4 +44,4 @@ export const Checkbox: React.FC<CheckboxPropsType> = ({
       {children && <span className={s.textForCheckbox}>{children}</span>}
     </label>
   )
-}
+})

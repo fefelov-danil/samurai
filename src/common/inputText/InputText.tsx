@@ -1,4 +1,4 @@
-import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent } from 'react'
+import React, {ChangeEvent, DetailedHTMLProps, forwardRef, InputHTMLAttributes, KeyboardEvent} from 'react'
 
 import s from 'common/inputText/InputText.module.css'
 
@@ -15,7 +15,9 @@ type InputTextPropsType = DefaultInputTextPropsType & {
   spanClassName?: string
 }
 
-export const InputText: React.FC<InputTextPropsType> = ({
+type Ref = HTMLInputElement;
+
+export const InputText = forwardRef<Ref, InputTextPropsType>(({
   type,
   onChange,
   onChangeText,
@@ -25,7 +27,7 @@ export const InputText: React.FC<InputTextPropsType> = ({
   className,
   spanClassName,
   ...restProps
-}) => {
+}, ref) => {
   const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
     onChange && onChange(e)
     onChangeText && onChangeText(e.currentTarget.value)
@@ -37,11 +39,12 @@ export const InputText: React.FC<InputTextPropsType> = ({
   }
 
   const finalSpanClassName = `${s.error} ${spanClassName ? spanClassName : ''}`
-  const finalInputClassName = `${s.inputText} ${error && s.errorInput} ${className}` // need to fix with (?:) and s.superInput
+  const finalInputClassName = `${s.inputText} ${error && s.errorInput} ${className}`
 
   return (
     <>
       <input
+        ref={ref}
         type={'text'}
         onChange={onChangeCallback}
         onKeyDown={onKeyPressCallback}
@@ -51,4 +54,4 @@ export const InputText: React.FC<InputTextPropsType> = ({
       {error && <span className={finalSpanClassName}>{error}</span>}
     </>
   )
-}
+})
