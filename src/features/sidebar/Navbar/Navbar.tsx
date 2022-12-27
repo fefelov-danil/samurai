@@ -24,6 +24,9 @@ export const Navbar = () => {
       <div className={s.item}>
         <NavLink to={PATHS.SETTINGS}>Настройки</NavLink>
       </div>
+      <div className={s.item}>
+        <NavLink to={PATHS.LOGIN}>Войти</NavLink>
+      </div>
     </nav>
   )
 }

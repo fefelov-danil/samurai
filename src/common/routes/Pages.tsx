@@ -6,6 +6,7 @@ import {Music} from "features/music/Music";
 import {Settings} from "features/settings/Settings";
 import {Dialogs} from "features/dialogs/Dialogs";
 import {Users} from "features/users/Users";
+import {Login} from "features/profile/login/Login";
 
 export const PATHS = {
   MESSAGES: '/messages',
@@ -13,7 +14,8 @@ export const PATHS = {
   USERS: '/users',
   NEWS: '/news',
   MUSIC: '/music',
-  SETTINGS: '/settings'
+  SETTINGS: '/settings',
+  LOGIN: '/login'
 }
 
 export const Pages = () => {
@@ -25,6 +27,7 @@ export const Pages = () => {
       <Route path={PATHS.MUSIC} element={<Music/>}/>
       <Route path={PATHS.USERS} element={<Users/>}/>
       <Route path={PATHS.SETTINGS} element={<Settings/>}/>
+      <Route path={PATHS.LOGIN} element={<Login/>}/>
     </Routes>
   );
 };
