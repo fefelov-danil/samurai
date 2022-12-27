@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import s from './SendPost.module.css'
 import {useAppDispatch, useAppSelector} from "utils/hooks";
-import {addPostAC, postTextareaOnChangeAC} from "features/profile/profile-reducer";
+import {addPostAC, postTextareaOnChangeAC} from "redux/reducers/profile-reducer";
 import {Textarea} from "common/textarea/Textarea";
 import {Button} from "common/button/Button";
 

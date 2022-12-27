@@ -1,9 +1,9 @@
 import {AnyAction, combineReducers} from "redux";
-import {dialogsReducer} from "features/dialogs/dialogs-reducer";
-import {profileReducer} from "features/profile/profile-reducer";
-import {sidebarReducer} from "features/sidebar/sidebar-reducer";
+import {dialogsReducer} from "redux/reducers/dialogs-reducer";
+import {profileReducer} from "redux/reducers/profile-reducer";
+import {sidebarReducer} from "redux/reducers/sidebar-reducer";
 import thunk, {ThunkDispatch} from "redux-thunk";
-import {usersReducer} from "features/users/users-reducer";
+import {usersReducer} from "redux/reducers/users-reducer";
 import {configureStore} from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({

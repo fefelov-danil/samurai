@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import s from './User.module.css'
-import {followedAC, UserType} from "features/users/users-reducer";
+import {followedAC, UserType} from "redux/reducers/users-reducer";
 import {useAppDispatch} from "utils/hooks";
 import {Button} from "common/button/Button";
 

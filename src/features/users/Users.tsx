@@ -2,7 +2,7 @@ import React from 'react';
 import s from 'features/users/Users.module.css'
 import {v1} from "uuid";
 import {useAppDispatch, useAppSelector} from "utils/hooks";
-import {setUsersAC} from "features/users/users-reducer";
+import {setUsersAC} from "redux/reducers/users-reducer";
 import {User} from "features/users/user/User";
 
 const initialUsers = [
