@@ -5,8 +5,10 @@ import {sidebarReducer} from "redux/reducers/sidebar-reducer";
 import thunk, {ThunkDispatch} from "redux-thunk";
 import {usersReducer} from "redux/reducers/users-reducer";
 import {configureStore} from "@reduxjs/toolkit";
+import {appReducer} from "redux/reducers/app-reducer";
 
 const rootReducer = combineReducers({
+  app: appReducer,
   profile: profileReducer,
   dialogs: dialogsReducer,
   sidebar: sidebarReducer,
