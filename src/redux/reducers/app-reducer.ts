@@ -3,7 +3,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 export const sliceApp = createSlice({
   name: 'app',
   initialState: {
-    appStatus: 'app boot' as AppStatusType,
+    appStatus: 'total loading' as AppStatusType,
     appAlert: { message: null, type: null } as AppAlertType,
   },
   reducers: {
@@ -22,6 +22,6 @@ export const {setAppStatus, setAppAlert} = sliceApp.actions
 
 //-------------- TYPES --------------\\
 
-type AppStatusType = 'app boot' | 'loading' | 'idle'
+type AppStatusType = 'total loading' | 'loading' | 'idle'
 type AppAlertType = { message: null | string; type: AlertType }
 export type AlertType = null | 'error' | 'success'
