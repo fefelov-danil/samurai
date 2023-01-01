@@ -16,5 +16,4 @@ export const errorUtils = (
   } else {
     dispatch(setAppAlert( {message: `Native error ${err.message}`, type: 'error'} ))
   }
-  dispatch(setAppStatus('idle'))
 }

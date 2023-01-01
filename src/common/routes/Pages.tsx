@@ -7,27 +7,59 @@ import {Settings} from "features/settings/Settings";
 import {Dialogs} from "features/dialogs/Dialogs";
 import {Users} from "features/users/Users";
 import {Login} from "features/profile/login/Login";
+import {useAppSelector} from "utils/hooks";
+import {PrivateAuth} from "utils/hoc/PrivateAuth";
 
 export const PATHS = {
-  MESSAGES: '/messages',
+  LOGIN: '/login',
+  NEWS: '/',
   PROFILE: '/profile',
-  USERS: '/users',
-  NEWS: '/news',
-  MUSIC: '/music',
   SETTINGS: '/settings',
-  LOGIN: '/login'
+  MESSAGES: '/messages',
+  USERS: '/users',
+  MUSIC: '/music'
 }
 
 export const Pages = () => {
+  const isLoggedIn = useAppSelector(state => state.profile.isLoggedIn)
+
   return (
     <Routes>
-      <Route path={PATHS.MESSAGES} element={<Dialogs/>}/>
-      <Route path={PATHS.PROFILE} element={<Profile/>}/>
-      <Route path={PATHS.NEWS} element={<News/>}/>
-      <Route path={PATHS.MUSIC} element={<Music/>}/>
-      <Route path={PATHS.USERS} element={<Users/>}/>
-      <Route path={PATHS.SETTINGS} element={<Settings/>}/>
-      <Route path={PATHS.LOGIN} element={<Login/>}/>
+      <Route path={PATHS.LOGIN} element={
+        <PrivateAuth isLoggedIn={!isLoggedIn} defaultPath={PATHS.PROFILE}>
+          <Login/>
+        </PrivateAuth>
+      }/>
+      <Route path={PATHS.PROFILE} element={
+        <PrivateAuth isLoggedIn={isLoggedIn}>
+          <Profile/>
+        </PrivateAuth>
+      }/>
+      <Route path={PATHS.NEWS} element={
+        <PrivateAuth isLoggedIn={isLoggedIn}>
+          <News/>
+        </PrivateAuth>
+      }/>
+      <Route path={PATHS.SETTINGS} element={
+        <PrivateAuth isLoggedIn={isLoggedIn}>
+          <Settings/>
+        </PrivateAuth>
+      }/>
+      <Route path={PATHS.MESSAGES} element={
+        <PrivateAuth isLoggedIn={isLoggedIn}>
+          <Dialogs/>
+        </PrivateAuth>
+      }/>
+      <Route path={PATHS.MUSIC} element={
+        <PrivateAuth isLoggedIn={isLoggedIn}>
+          <Music/>
+        </PrivateAuth>
+      }/>
+      <Route path={PATHS.USERS} element={
+        <PrivateAuth isLoggedIn={isLoggedIn}>
+          <Users/>
+        </PrivateAuth>
+      }/>
     </Routes>
   );
 };

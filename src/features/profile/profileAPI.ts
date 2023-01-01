@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-export const profileAPI = createApi({
+export const profileAPI1 = createApi({
   reducerPath: 'profileApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://social-network.samuraijs.com/api/1.0/',

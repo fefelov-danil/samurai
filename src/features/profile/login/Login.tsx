@@ -7,8 +7,12 @@ import {loginSchema} from "utils/schemas/loginValidation";
 import {InputText} from "common/inputText/InputText";
 import {InputPassword} from "common/inputPassword/InputPassword";
 import {Checkbox} from "common/checkbox/Checkbox";
+import {useAppDispatch} from "utils/hooks";
+import {login} from "redux/reducers/profile-reducer";
 
 export const Login = () => {
+  const dispatch = useAppDispatch()
+
   const {
     register,
     formState: {errors},
@@ -16,7 +20,7 @@ export const Login = () => {
   } = useForm<loginValues>({mode: "onTouched", resolver: yupResolver(loginSchema)})
 
   const onSubmit: SubmitHandler<loginValues> = (data) => {
-    console.log(data)
+    dispatch(login(data))
   }
 
   return (
@@ -38,7 +42,7 @@ export const Login = () => {
   );
 };
 
-//----------- TYPES -----------//
+//----------- TYPES -----------\\
 type loginValues = {
   email: string
   password: string

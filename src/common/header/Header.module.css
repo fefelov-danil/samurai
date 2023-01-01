@@ -1,5 +1,37 @@
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   grid-area: h;
   padding: 5px 15px;
   background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+}
+.header .logo img {
+  max-height: 45px;
+}
+.me {
+  display: flex;
+  align-items: center;
+}
+.me img {
+  max-height: 45px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.me .name {
+  display: inline-block;
+  font-size: 15px;
+  margin-bottom: 2px;
+}
+.me .logout {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  font-size: 13px;
+  color: #555;
+}
+.me .logout svg {
+  margin-left: 3px;
 }

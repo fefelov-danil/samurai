@@ -21,8 +21,8 @@ export const App = () => {
   }, [])
 
   useEffect(() => {
-    if (isLoggedIn) {
-      dispatch(getProfile(profile.id))
+    if (isLoggedIn && profile.userId) {
+      dispatch(getProfile(profile.userId))
     }
   }, [isLoggedIn])
 

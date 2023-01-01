@@ -24,7 +24,7 @@ export type ResponseType<T = {}> = {
 }
 
 type DataLoginResponseType = {
-  userId: string
+  userId: number
 }
 
 type DataAuthResponseType = {
@@ -33,7 +33,7 @@ type DataAuthResponseType = {
   login: string
 }
 
-type ValuesLoginType = {
+export type ValuesLoginType = {
   email: string
   password: string
   rememberMe: boolean

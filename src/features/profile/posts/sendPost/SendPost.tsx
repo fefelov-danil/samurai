@@ -1,7 +1,6 @@
 import React, {ChangeEvent} from 'react';
 import s from './SendPost.module.css'
 import {useAppDispatch, useAppSelector} from "utils/hooks";
-import {addPostAC, postTextareaOnChangeAC} from "redux/reducers/profile-reducer";
 import {Textarea} from "common/textarea/Textarea";
 import {Button} from "common/button/Button";
 
@@ -10,11 +9,11 @@ export const SendPost = () => {
   const postText = useAppSelector(state => state.profile.newPostText)
 
   const onChangeTextPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch(postTextareaOnChangeAC(e.currentTarget.value))
+    // dispatch(postTextareaOnChangeAC(e.currentTarget.value))
   }
   const onClickAddPostHandler = () => {
-    dispatch(addPostAC())
-    dispatch(postTextareaOnChangeAC(''))
+    // dispatch(addPostAC())
+    // dispatch(postTextareaOnChangeAC(''))
   }
 
   return (
