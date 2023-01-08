@@ -1,8 +1,8 @@
 import {v1} from "uuid";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {profileApi, ValuesLoginType} from "api/profile-api";
+import {profileApi, ProfileDataType, ProfileStatusType, ValuesLoginType} from "api/profile-api";
 import {AxiosError} from "axios";
-import {errorUtils} from "utils/error-utils";
+import {networkError, serverError} from "utils/error-utils";
 import {setAppStatus} from "redux/reducers/app-reducer";
 
 export const authMe = createAsyncThunk('profile/authMe', async () => {
@@ -14,49 +14,94 @@ export const authMe = createAsyncThunk('profile/authMe', async () => {
   }
 })
 
-export const login = createAsyncThunk('profile/login', async (values: ValuesLoginType, {dispatch}) => {
-  dispatch(setAppStatus('loading'))
-  try {
-    const res = await profileApi.login(values)
-    if (res.data.resultCode === 0) {
-      return res.data
-    } else {
-
+export const login = createAsyncThunk('profile/login',
+  async (values: ValuesLoginType, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatus('loading'))
+    try {
+      const res = await profileApi.login(values)
+      if (res.data.resultCode === 0) {
+        return res.data
+      } else {
+        serverError(dispatch, res.data)
+        return rejectWithValue(null)
+      }
+    } catch (e) {
+      networkError(e as Error | AxiosError<{ error: string }>, dispatch)
+      return rejectWithValue(null)
+    } finally {
+      dispatch(setAppStatus('idle'))
     }
-  } catch (e) {
-    errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)
-  } finally {
-    dispatch(setAppStatus('idle'))
-  }
-})
+  })
 
-export const getProfile = createAsyncThunk('profile/getProfile', async (myId: number, {dispatch}) => {
-  dispatch(setAppStatus('loading'))
-  try {
-    const res = await profileApi.getProfile(myId)
-    return res.data
-  } catch (e) {
-    errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)
-  } finally {
-    dispatch(setAppStatus('idle'))
-  }
-})
+export const getProfile = createAsyncThunk('profile/getProfile',
+  async (myId: number, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatus('loading'))
+    try {
+      const res = await profileApi.getProfile(myId)
+      return res.data
+    } catch (e) {
+      networkError(e as Error | AxiosError<{ error: string }>, dispatch)
+      return rejectWithValue(null)
+    } finally {
+      dispatch(setAppStatus('idle'))
+    }
+  })
 
-export const logout = createAsyncThunk('profile/logout', async (_, {dispatch}) => {
-  dispatch(setAppStatus('loading'))
-  try {
-    const res = await profileApi.logout()
-    return res.data
-  } catch (e) {
-    errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)
-  } finally {
-    dispatch(setAppStatus('idle'))
-  }
-})
+export const changeProfile = createAsyncThunk('profile/changeProfile',
+  async (profile: ProfileDataType, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatus('loading'))
+    try {
+      const res = await profileApi.changeProfile(profile)
+      if (res.data.resultCode === 0 && profile.userId) {
+        dispatch(getProfile(profile.userId))
+        return res.data.resultCode
+      } else {
+        serverError(dispatch, res.data)
+        return rejectWithValue(null)
+      }
+    } catch (e) {
+      networkError(e as Error | AxiosError<{ error: string }>, dispatch)
+    } finally {
+      dispatch(setAppStatus('idle'))
+    }
+  })
+
+export const getProfileStatus = createAsyncThunk('profile/getStatus',
+  async (myId: number, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatus('loading'))
+    try {
+      const res = await profileApi.getStatus(myId)
+      return res.data
+    } catch (e) {
+      networkError(e as Error | AxiosError<{ error: string }>, dispatch)
+      return rejectWithValue(null)
+    } finally {
+      dispatch(setAppStatus('idle'))
+    }
+  })
+
+export const logout = createAsyncThunk('profile/logout',
+  async (_, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatus('loading'))
+    try {
+      const res = await profileApi.logout()
+      if (res.data.resultCode === 0) {
+        return res.data
+      } else {
+        serverError(dispatch, res.data)
+        return rejectWithValue(null)
+      }
+    } catch (e) {
+      networkError(e as Error | AxiosError<{ error: string }>, dispatch)
+    } finally {
+      dispatch(setAppStatus('idle'))
+    }
+  })
 
 const initialState = {
   isLoggedIn: false,
   profileData: {} as ProfileDataType,
+  status: null as ProfileStatusType,
   posts: [
     {id: v1(), message: 'Hey, why nobody me?', likesCount: 8},
     {id: v1(), message: 'It\'s our new program!', likesCount: 12},
@@ -79,13 +124,16 @@ export const sliceProfile = createSlice({
       state.profileData.userId = action.payload.id
     })
     builder.addCase(login.fulfilled, (state, action) => {
-      if (action.payload?.resultCode === 0) {
+      if (action.payload.resultCode === 0) {
         state.isLoggedIn = true
         state.profileData.userId = action.payload.data.userId
       }
     })
     builder.addCase(getProfile.fulfilled, (state, action) => {
       state.profileData = action.payload
+    })
+    builder.addCase(getProfileStatus.fulfilled, (state, action) => {
+      state.status = action.payload
     })
     builder.addCase(logout.fulfilled, (state, action) => {
       console.log(action.payload)
@@ -95,30 +143,3 @@ export const sliceProfile = createSlice({
 })
 
 export const profileReducer = sliceProfile.reducer
-
-// Types
-type ProfileDataType = {
-  userId: null | number
-  aboutMe: null | string
-  contacts: ContactsType
-  fullName: null | string
-  lookingForAJob: boolean
-  lookingForAJobDescription: null | string
-  photos: PhotosType
-}
-
-type ContactsType = {
-  facebook: null | string
-  github: null | string
-  instagram: null | string
-  mainLink: null | string
-  twitter: null | string
-  vk: null | string
-  website: null | string
-  youtube: null | string
-}
-
-type PhotosType = {
-  large: null | string
-  small: null | string
-}
