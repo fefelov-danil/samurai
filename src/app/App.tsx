@@ -5,7 +5,7 @@ import {Header} from "common/header/Header";
 import {Sidebar} from "features/sidebar/Sidebar";
 import {Pages} from "common/routes/Pages";
 import {useAppDispatch, useAppSelector} from "utils/hooks";
-import {authMe, getProfile} from "redux/reducers/profile-reducer";
+import {authMe, getProfile, getProfileStatus} from "redux/reducers/profile-reducer";
 import {Alert} from "common/alert/Alert";
 import {setAppStatus} from "redux/reducers/app-reducer";
 
@@ -23,6 +23,7 @@ export const App = () => {
   useEffect(() => {
     if (isLoggedIn && profile.userId) {
       dispatch(getProfile(profile.userId))
+      dispatch(getProfileStatus(profile.userId))
     }
   }, [isLoggedIn])
 
