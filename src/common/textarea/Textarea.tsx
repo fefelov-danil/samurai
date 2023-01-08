@@ -1,4 +1,4 @@
-import React, { ChangeEvent, DetailedHTMLProps, KeyboardEvent, TextareaHTMLAttributes } from 'react'
+import React, {ChangeEvent, DetailedHTMLProps, forwardRef, KeyboardEvent, TextareaHTMLAttributes} from 'react'
 
 import s from './Textarea.module.css'
 
@@ -14,7 +14,9 @@ type TextareaPropsType = DefaultTextareaPropsType & {
   spanClassName?: string
 }
 
-export const Textarea: React.FC<TextareaPropsType> = ({
+type Ref = HTMLTextAreaElement;
+
+export const Textarea = forwardRef<Ref, TextareaPropsType>( ({
   onChange,
   onChangeText,
   onKeyDown,
@@ -23,7 +25,7 @@ export const Textarea: React.FC<TextareaPropsType> = ({
   className,
   spanClassName,
   ...restProps
-}) => {
+}, ref) => {
   const onChangeCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
     onChange && onChange(e)
     onChangeText && onChangeText(e.currentTarget.value)
@@ -35,11 +37,12 @@ export const Textarea: React.FC<TextareaPropsType> = ({
   }
 
   const finalSpanClassName = `${s.error} ${spanClassName ? spanClassName : ''}`
-  const finalTextareaClassName = `${s.textarea} ${error && s.errorTextarea} ${className}` // need to fix with (?:) and s.superInput
+  const finalTextareaClassName = `${s.textarea} ${error && s.errorTextarea} ${className}`
 
   return (
     <>
       <textarea
+        ref={ref}
         onChange={onChangeCallback}
         onKeyDown={onKeyPressCallback}
         className={finalTextareaClassName}
@@ -48,4 +51,4 @@ export const Textarea: React.FC<TextareaPropsType> = ({
       {error && <span className={finalSpanClassName}>{error}</span>}
     </>
   )
-}
+})
