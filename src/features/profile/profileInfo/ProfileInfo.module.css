@@ -6,12 +6,36 @@
   margin-bottom: 30px;
 }
 
-.profileInfo img {
-  width: 110px;
+.profileInfo .avatar {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.jobStatusTrue {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 2px 8px;
+  background: #B6D65C;
+  color: #000;
+  font-size: 13px;
+  font-weight: 600;
+  border-top-right-radius: 8px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.profileInfo .avatar img {
+  width: 180px;
+}
+
+.profileInfo .avatar .change:hover {
+  background: #CCF068;
 }
 
 .profileAbout {
-  width: calc(100% - 130px);
+  width: calc(100% - 215px);
 }
 
 p.name {
@@ -22,7 +46,36 @@ p.name {
   margin-bottom: 12px;
 }
 
-p.about {
-  font-size: 15px;
-  margin-bottom: 0;
+p.aboutMe {
+  margin-bottom: 10px;
+}
+
+p.website a {
+  text-decoration: underline;
+}
+
+.contacts {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.contacts a {
+  display: inline-block;
+  line-height: 1;
+}
+
+.contacts svg {
+  fill: #555;
+  font-size: 30px;
+  margin-right: 5px;
+  transition: 0.2s;
+}
+
+.contacts svg:hover {
+  fill: #333;
+}
+
+.contacts .vk svg {
+  font-size: 27px;
 }
