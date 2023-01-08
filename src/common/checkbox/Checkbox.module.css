@@ -18,7 +18,7 @@
 
 .listItem {
   position: absolute;
-  top: -1px;
+  top: 0;
   left: 0;
 
   width: 20px;
@@ -44,12 +44,12 @@
   width: 5px;
   height: 10px;
 
-  border: solid #fff;
+  border: solid #000;
   border-width: 0 2px 2px 0;
 }
 
 .checkbox:checked ~ .listItem {
-  background: #5c5c5c;
+  background: #B6D65C;
 }
 
 .checkbox:checked ~ .listItem:before {

@@ -32,7 +32,7 @@ export const Checkbox = forwardRef<Ref, CheckboxPropsType>(({
   const finalInputClassName = `${s.checkbox} ${className ? className : ''}`
 
   return (
-    <label className={s.labelCheckbox}>
+    <label className={`${s.labelCheckbox} ${className}`}>
       <input
         ref={ref}
         type={'checkbox'}
