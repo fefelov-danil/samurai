@@ -1,0 +1,64 @@
+.change {
+  padding: 5px 15px;
+  font-size: 14px;
+}
+
+.field {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.field span {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.field input {
+  width: 100%;
+}
+
+.aboutMe {
+  height: 95px;
+}
+
+.lookingForAJob {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.lookingForAJobDescription {
+  height: 60px;
+}
+
+.links .linkField {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.links .linkField input {
+  width: calc(100% - 27px);
+}
+
+.links .linkField span {
+  width: 23px;
+  display: flex;
+  align-items: center;
+}
+
+.links .linkField span svg {
+  color: #87B800;
+  font-size: 23px;
+  margin-right: 3px;
+}
+
+.links .linkField .linkInput {
+  height: 30px;
+}
+
+.changeBtn {
+  width: 100%;
+  margin-top: 10px;
+}
