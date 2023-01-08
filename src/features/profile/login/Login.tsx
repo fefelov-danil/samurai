@@ -17,9 +17,9 @@ export const Login = () => {
     register,
     formState: {errors},
     handleSubmit
-  } = useForm<loginValues>({mode: "onTouched", resolver: yupResolver(loginSchema)})
+  } = useForm<LoginValuesType>({mode: "onTouched", resolver: yupResolver(loginSchema)})
 
-  const onSubmit: SubmitHandler<loginValues> = (data) => {
+  const onSubmit: SubmitHandler<LoginValuesType> = (data) => {
     dispatch(login(data))
   }
 
@@ -43,7 +43,7 @@ export const Login = () => {
 };
 
 //----------- TYPES -----------\\
-type loginValues = {
+type LoginValuesType = {
   email: string
   password: string
   rememberMe: boolean
