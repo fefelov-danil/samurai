@@ -12,15 +12,12 @@ import {
 } from "react-icons/fa";
 import {ImVk} from "react-icons/im";
 import {ProfileStatusType} from "api/profile-api";
-import {ChangeProfileModal} from "./modals/ChangeProfileModal";
+import {ChangeProfileModal} from "features/profile/profileInfo/modals/changeProfile/ChangeProfileModal";
+import {SelectPhotoModal} from "features/profile/profileInfo/modals/selectPhoto/SelectPhotoModal";
 
 export const ProfileInfo = () => {
   const profile = useAppSelector(state => state.profile.profileData)
   const status = useAppSelector(state => state.profile.status)
-
-  if (profile.fullName === undefined) {
-    return <h1>Loading...</h1>
-  }
 
   const avatar = profile.photos?.large ? profile.photos.large : defaultAva
   const name = profile.fullName ? profile.fullName : ''
@@ -36,9 +33,7 @@ export const ProfileInfo = () => {
   }
 
   const renderStatus = (status: ProfileStatusType) => {
-    if (status) {
-      return <p className={s.status}>Статус: {status.media}</p>
-    }
+    if (status) return <p className={s.status}>Статус: {status.media}</p>
   }
 
   const renderWebsiteLink = (link: string | null) => {
@@ -47,9 +42,14 @@ export const ProfileInfo = () => {
     }
   }
 
+  if (profile.fullName === undefined) {
+    return <h1>Loading...</h1>
+  }
+
   return (
     <div className={s.profileInfo}>
       <div className={s.avatar}>
+        <SelectPhotoModal photo={avatar} />
         <img
           src={avatar}
           alt="avatar"
