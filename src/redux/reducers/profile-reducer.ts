@@ -61,6 +61,7 @@ export const changeProfile = createAsyncThunk('profile/changeProfile',
       }
     } catch (e) {
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
+      return rejectWithValue(null)
     } finally {
       dispatch(setAppStatus('idle'))
     }
@@ -93,14 +94,37 @@ export const logout = createAsyncThunk('profile/logout',
       }
     } catch (e) {
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
+      return rejectWithValue(null)
     } finally {
       dispatch(setAppStatus('idle'))
     }
   })
 
+export const changePhoto = createAsyncThunk('profile/changePhoto',
+  async (photo: File, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatus('loading'))
+    try {
+      const res = await profileApi.changePhoto({image: photo})
+      if (res.data.resultCode === 0) {
+        console.log(res.data)
+        return res.data
+      } else {
+        serverError(dispatch, res.data)
+        return rejectWithValue(null)
+      }
+    } catch (e) {
+      networkError(e as Error | AxiosError<{ error: string }>, dispatch)
+      return rejectWithValue(null)
+    } finally {
+      dispatch(setAppStatus('idle'))
+    }
+})
+
 const initialState = {
   isLoggedIn: false,
-  profileData: {} as ProfileDataType,
+  profileData: {
+    photos: {small: '111', large: '111'}
+  } as ProfileDataType,
   status: null as ProfileStatusType,
   posts: [
     {id: v1(), message: 'Hey, why nobody me?', likesCount: 8},
@@ -124,10 +148,8 @@ export const sliceProfile = createSlice({
       state.profileData.userId = action.payload.id
     })
     builder.addCase(login.fulfilled, (state, action) => {
-      if (action.payload.resultCode === 0) {
-        state.isLoggedIn = true
-        state.profileData.userId = action.payload.data.userId
-      }
+      state.isLoggedIn = true
+      state.profileData.userId = action.payload.data.userId
     })
     builder.addCase(getProfile.fulfilled, (state, action) => {
       state.profileData = action.payload
@@ -135,9 +157,11 @@ export const sliceProfile = createSlice({
     builder.addCase(getProfileStatus.fulfilled, (state, action) => {
       state.status = action.payload
     })
-    builder.addCase(logout.fulfilled, (state, action) => {
-      console.log(action.payload)
+    builder.addCase(logout.fulfilled, (state) => {
       state.isLoggedIn = false
+    })
+    builder.addCase(changePhoto.fulfilled, (state, action) => {
+      state.profileData.photos = action.payload.data.photos
     })
   }
 })

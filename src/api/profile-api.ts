@@ -1,4 +1,4 @@
-import {instance} from "api/instance-api";
+import {instance, instancePhoto} from "api/instance-api";
 
 export const profileApi = {
   authMe() {
@@ -18,6 +18,9 @@ export const profileApi = {
   },
   getStatus(userId: number) {
     return instance.get<ProfileStatusType>(`profile/status/${userId}`)
+  },
+  changePhoto(data: { image: File }) {
+    return instancePhoto.put<ResponseType<{photos: PhotosType}>>('profile/photo', data)
   }
 }
 
@@ -72,6 +75,6 @@ export type ContactsType = {
 }
 
 type PhotosType = {
-  large: null | string
-  small: null | string
+  large: string
+  small: string
 }
