@@ -1,7 +1,6 @@
-import React, {ReactNode} from 'react';
+import React, {FC, ReactNode} from 'react';
 import s from './ProfileInfo.module.css'
 import defaultAva from 'assets/images/ava.png'
-import {useAppSelector} from "utils/hooks";
 import {
   FaFacebookSquare,
   FaGithubSquare,
@@ -11,14 +10,21 @@ import {
   FaYoutubeSquare
 } from "react-icons/fa";
 import {ImVk} from "react-icons/im";
-import {ProfileStatusType} from "api/profile-api";
 import {ChangeProfileModal} from "features/profile/profileInfo/modals/changeProfile/ChangeProfileModal";
 import {SelectPhotoModal} from "features/profile/profileInfo/modals/selectPhoto/SelectPhotoModal";
+import {ProfileDataType, ProfileStatusType} from "api/profileApi/types";
 
-export const ProfileInfo = () => {
-  const profile = useAppSelector(state => state.profile.profileData)
-  const status = useAppSelector(state => state.profile.status)
+type ProfileInfoPropsType = {
+  myOrUserProfile: 'my' | 'user'
+  profile: ProfileDataType
+  status: ProfileStatusType
+}
 
+export const ProfileInfo: FC<ProfileInfoPropsType> = ({
+                                                        myOrUserProfile,
+                                                        profile,
+                                                        status
+}) => {
   const avatar = profile.photos?.large ? profile.photos.large : defaultAva
   const name = profile.fullName ? profile.fullName : ''
   const aboutMe = profile.aboutMe ? profile.aboutMe : ''
@@ -33,12 +39,12 @@ export const ProfileInfo = () => {
   }
 
   const renderStatus = (status: ProfileStatusType) => {
-    if (status) return <p className={s.status}>Статус: {status.media}</p>
+    if (status) return <p className={s.status}>Статус: {status}</p>
   }
 
   const renderWebsiteLink = (link: string | null) => {
     if (link) {
-      return <p className={s.website}><b>My website:</b><br /><a href={link} target={'_blank'}>{link}</a></p>
+      return <p className={s.website}><b>My website:</b><br/><a href={link} target={'_blank'}>{link}</a></p>
     }
   }
 
@@ -49,7 +55,7 @@ export const ProfileInfo = () => {
   return (
     <div className={s.profileInfo}>
       <div className={s.avatar}>
-        <SelectPhotoModal photo={avatar} />
+        {myOrUserProfile === 'my' && <SelectPhotoModal photo={avatar}/>}
         <img
           src={avatar}
           alt="avatar"
@@ -71,14 +77,14 @@ export const ProfileInfo = () => {
           {renderContactLink(contacts.twitter, <FaTwitterSquare/>)}
           {renderContactLink(contacts.youtube, <FaYoutubeSquare/>)}
         </div>
-        <ChangeProfileModal
+        {myOrUserProfile === 'my' && <ChangeProfileModal
           userId={profile.userId}
           name={name}
           aboutMe={aboutMe}
           contacts={contacts}
           jobStatus={jobStatus}
           jobStatusDesc={jobStatusDesc}
-        />
+        />}
       </div>
     </div>
   )
