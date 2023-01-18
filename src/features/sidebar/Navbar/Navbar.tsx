@@ -16,10 +16,10 @@ export const Navbar = () => {
         <NavLink to={PATHS.NEWS}>Новости</NavLink>
       </div>
       <div className={s.item}>
-        <NavLink to={PATHS.MUSIC}>Музыка</NavLink>
+        <NavLink to={PATHS.USERS}>Друзья</NavLink>
       </div>
       <div className={s.item}>
-        <NavLink to={PATHS.USERS}>Пользователи</NavLink>
+        <NavLink to={PATHS.MUSIC}>Музыка</NavLink>
       </div>
       <div className={s.item}>
         <NavLink to={PATHS.SETTINGS}>Настройки</NavLink>
