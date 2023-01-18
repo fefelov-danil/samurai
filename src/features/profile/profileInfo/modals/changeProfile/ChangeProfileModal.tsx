@@ -4,7 +4,6 @@ import s from "./ChangeProfileModal.module.css";
 import {FaPen} from "react-icons/fa";
 import {Modal} from "common/modal/Modal";
 import {InputText} from "common/inputText/InputText";
-import {ContactsType} from "api/profile-api";
 import {Textarea} from "common/textarea/Textarea";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {changeProfile} from "redux/reducers/profile-reducer";
@@ -20,6 +19,7 @@ import {
   FaVk
 } from "react-icons/fa";
 import {FiLink} from "react-icons/fi";
+import {ContactsType} from "api/profileApi/types";
 
 type ChangeProfileModalPropsType = {
   userId: number | null
@@ -68,7 +68,7 @@ export const ChangeProfileModal: FC<ChangeProfileModalPropsType> = ({
     const res = await dispatch(changeProfile({
       userId: userId,
       fullName: data.name ? data.name : null,
-      aboutMe: data.aboutMe ? data.aboutMe : null,
+      aboutMe: data.aboutMe ? data.aboutMe : '...',
       contacts: {
         mainLink: data.mainLink ? data.mainLink : null,
         github: data.github ? data.github : null,
@@ -121,9 +121,9 @@ export const ChangeProfileModal: FC<ChangeProfileModalPropsType> = ({
         </label>
         <Checkbox className={s.lookingForAJob} {...register('lookingForAJob')}>Ищу работу</Checkbox>
         <label className={s.field}>
+          <span>Опишите какую работу ищите / если уже работаете, то расскажите в двух словах:</span><br/>
           <Textarea
             className={s.lookingForAJobDescription}
-            placeholder={'Какую работу ищите'}
             {...register('lookingForAJobDescription')}/>
         </label>
         <div className={s.links}>
