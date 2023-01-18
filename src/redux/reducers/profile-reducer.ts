@@ -1,9 +1,10 @@
 import {v1} from "uuid";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {profileApi, ProfileDataType, ProfileStatusType, ValuesLoginType} from "api/profile-api";
+import {profileApi} from "api/profileApi/profile-api";
 import {AxiosError} from "axios";
 import {networkError, serverError} from "utils/error-utils";
 import {setAppStatus} from "redux/reducers/app-reducer";
+import {ProfileDataType, ProfileStatusType, ValuesLoginType} from "api/profileApi/types";
 
 export const authMe = createAsyncThunk('profile/authMe', async () => {
   const res = await profileApi.authMe()
@@ -22,7 +23,7 @@ export const login = createAsyncThunk('profile/login',
       if (res.data.resultCode === 0) {
         return res.data
       } else {
-        serverError(dispatch, res.data)
+        serverError(dispatch, res.data.messages[0])
         return rejectWithValue(null)
       }
     } catch (e) {
@@ -56,7 +57,7 @@ export const changeProfile = createAsyncThunk('profile/changeProfile',
         dispatch(getProfile(profile.userId))
         return res.data.resultCode
       } else {
-        serverError(dispatch, res.data)
+        serverError(dispatch, res.data.messages[0])
         return rejectWithValue(null)
       }
     } catch (e) {
@@ -89,7 +90,7 @@ export const logout = createAsyncThunk('profile/logout',
       if (res.data.resultCode === 0) {
         return res.data
       } else {
-        serverError(dispatch, res.data)
+        serverError(dispatch, res.data.messages[0])
         return rejectWithValue(null)
       }
     } catch (e) {
@@ -109,7 +110,7 @@ export const changePhoto = createAsyncThunk('profile/changePhoto',
         console.log(res.data)
         return res.data
       } else {
-        serverError(dispatch, res.data)
+        serverError(dispatch, res.data.messages[0])
         return rejectWithValue(null)
       }
     } catch (e) {
