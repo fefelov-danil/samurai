@@ -1,7 +1,6 @@
 import axios, { AxiosError } from 'axios'
 import {setAppAlert} from "redux/reducers/app-reducer";
 import {AnyAction, Dispatch} from "redux";
-import {ResponseType} from "api/profile-api";
 
 export const networkError = (
   e: Error | AxiosError<{ error: string }>,
@@ -19,9 +18,9 @@ export const networkError = (
   }
 }
 
-export const serverError = (dispatch: Dispatch<AnyAction>, response: ResponseType) => {
-  if (response.messages.length) {
-    dispatch(setAppAlert({message: response.messages[0], type: "error"}))
+export const serverError = (dispatch: Dispatch<AnyAction>, response: string) => {
+  if (response) {
+    dispatch(setAppAlert({message: response, type: "error"}))
   } else {
     dispatch(setAppAlert({message: 'Some error occurred', type: "error"}))
   }
