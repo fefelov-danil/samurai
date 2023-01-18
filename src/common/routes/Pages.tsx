@@ -9,14 +9,17 @@ import {Users} from "features/users/Users";
 import {Login} from "features/profile/login/Login";
 import {useAppSelector} from "utils/hooks";
 import {PrivateAuth} from "utils/hoc/PrivateAuth";
+import {PageUser} from "features/users/pageUser/PageUser";
 
 export const PATHS = {
   LOGIN: '/login',
   NEWS: '/',
   PROFILE: '/profile',
+  FRIENDS: '/friends',
   SETTINGS: '/settings',
   MESSAGES: '/messages',
   USERS: '/users',
+  USER: '/user',
   MUSIC: '/music'
 }
 
@@ -58,6 +61,11 @@ export const Pages = () => {
       <Route path={PATHS.USERS} element={
         <PrivateAuth isLoggedIn={isLoggedIn}>
           <Users/>
+        </PrivateAuth>
+      }/>
+      <Route path={`${PATHS.USER}/:id`} element={
+        <PrivateAuth isLoggedIn={isLoggedIn}>
+          <PageUser/>
         </PrivateAuth>
       }/>
     </Routes>
