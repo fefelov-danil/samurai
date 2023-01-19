@@ -22,12 +22,12 @@ export const profileApi = {
     return instance.get<ProfileDataType>(`profile/${userId}`)
   },
   changeProfile(data: ProfileDataType) {
-    return instance.put<ResponseType<ProfileDataType>>('profile', data)
+    return instance.put<ResponseType<ProfileDataType>>(`profile`, data)
   },
   getStatus(userId: number) {
     return instance.get<ProfileStatusType>(`profile/status/${userId}`)
   },
   changePhoto(data: { image: File }) {
-    return instancePhoto.put<ResponseType<{photos: PhotosType}>>('profile/photo', data)
+    return instancePhoto.put<ResponseType<{photos: PhotosType}>>(`profile/photo`, data)
   }
 }
