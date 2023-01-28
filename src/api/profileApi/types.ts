@@ -30,6 +30,7 @@ export type ProfileDataType = {
   lookingForAJob: boolean
   lookingForAJobDescription: null | string
   photos?: PhotosType
+  isFollowed?: boolean
 }
 
 export type ContactsType = {
