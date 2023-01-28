@@ -26,10 +26,11 @@ export const getUsers = createAsyncThunk('users/getUsers',
 })
 
 export const getUserProfile = createAsyncThunk('users/getUserProfile',
-  async (myId: number, {dispatch, rejectWithValue}) => {
+  async (id: number, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatus('loading'))
     try {
-      const res = await profileApi.getProfile(myId)
+      const res = await profileApi.getProfile(id)
+      dispatch(getUserProfileStatus(id))
       return res.data
     } catch (e) {
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
@@ -53,6 +54,59 @@ export const getUserProfileStatus = createAsyncThunk('users/getUserProfileStatus
     }
   })
 
+export const isFollowed = createAsyncThunk('users/isFollowed',
+  async (userId: number, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatus('loading'))
+    try {
+      const res = await usersAPI.isFollowed(userId)
+      dispatch(setAppStatus('idle'))
+      return res.data
+    } catch (e) {
+      networkError(e as Error | AxiosError<{ error: string }>, dispatch)
+      return rejectWithValue(null)
+    } finally {
+      dispatch(setAppStatus('idle'))
+    }
+  })
+
+export const followToUser = createAsyncThunk('users/followToUser',
+  async (userId: number, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatus('loading'))
+    try {
+      const res = await usersAPI.follow(userId)
+      if (res.data.resultCode === 0) {
+        return userId
+      } else {
+        serverError(dispatch, res.data.messages[0])
+        return rejectWithValue(null)
+      }
+    } catch (e) {
+      networkError(e as Error | AxiosError<{ error: string }>, dispatch)
+      return rejectWithValue(null)
+    } finally {
+      dispatch(setAppStatus('idle'))
+    }
+})
+
+export const unFollowToUser = createAsyncThunk('users/unFollowToUser',
+  async (userId: number, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatus('loading'))
+    try {
+      const res = await usersAPI.unFollow(userId)
+      if (res.data.resultCode === 0) {
+        return userId
+      } else {
+        serverError(dispatch, res.data.messages[0])
+        return rejectWithValue(null)
+      }
+    } catch (e) {
+      networkError(e as Error | AxiosError<{ error: string }>, dispatch)
+      return rejectWithValue(null)
+    } finally {
+      dispatch(setAppStatus('idle'))
+    }
+  })
+
 const sliceUsers = createSlice({
   name: 'users',
   initialState: {} as UsersInitialState,
@@ -68,7 +122,25 @@ const sliceUsers = createSlice({
     builder.addCase(getUserProfileStatus.fulfilled, (state, action) => {
       state.userStatus = action.payload
     })
+    builder.addCase(isFollowed.fulfilled, (state, action) => {
+      state.userProfile.isFollowed = action.payload
+    })
+    builder.addCase(followToUser.fulfilled, (state, action) => {
+      if (state.userProfile.userId === action.payload) {
+        state.userProfile.isFollowed = true
+      }
+      const index = state.items?.findIndex(item => item.id === action.payload)
+      state.items[index].followed = true
+    })
+    builder.addCase(unFollowToUser.fulfilled, (state, action) => {
+      if (state.userProfile.userId === action.payload) {
+        state.userProfile.isFollowed = false
+      }
+      const index = state.items?.findIndex(item => item.id === action.payload)
+      state.items[index].followed = false
+    })
   }
 })
 
 export const usersReducer = sliceUsers.reducer
+
