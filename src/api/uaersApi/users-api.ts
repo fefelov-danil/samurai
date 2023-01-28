@@ -7,7 +7,7 @@ export const usersAPI = {
     return instance.get<UsersType>(`users`, { params: { ...data } })
   },
   isFollowed(userId: number) {
-    return instance.get<ResponseType>(`follow/${userId}`)
+    return instance.get<boolean>(`follow/${userId}`)
   },
   follow(userId: number) {
     return instance.post<ResponseType>(`follow/${userId}`)
