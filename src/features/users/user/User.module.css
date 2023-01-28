@@ -36,9 +36,10 @@
 .avatar {
   width: 120px;
   height: 120px;
-  background-size: cover;
+  background-repeat: no-repeat;
+  background-size: contain;
   background-position: center;
-  border-radius: 50%;
+  border: 1px solid #dedede;
   margin-bottom: 10px;
 }
 
