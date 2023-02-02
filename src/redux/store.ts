@@ -22,3 +22,7 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = ThunkDispatch<RootState, unknown, AnyAction>
+
+// @ts-ignore
+window.store = store
+// @ts-ignore
