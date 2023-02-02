@@ -6,11 +6,16 @@
   margin-bottom: 30px;
 }
 
-.profileInfo .avatar {
+.profileInfo .avatarAndFollow .avatar {
   position: relative;
   background: #fff;
   border-radius: 8px;
   overflow: hidden;
+}
+
+.profileInfo .avatarAndFollow .followBtn {
+  width: 100%;
+  margin-top: 10px;
 }
 
 .jobStatusTrue {
