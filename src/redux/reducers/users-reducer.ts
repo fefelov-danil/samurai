@@ -30,7 +30,7 @@ export const getUserProfile = createAsyncThunk('users/getUserProfile',
     dispatch(setAppStatus('loading'))
     try {
       const res = await profileApi.getProfile(id)
-      dispatch(getUserProfileStatus(id))
+      await dispatch(getUserProfileStatus(id))
       return res.data
     } catch (e) {
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
@@ -59,7 +59,6 @@ export const isFollowed = createAsyncThunk('users/isFollowed',
     dispatch(setAppStatus('loading'))
     try {
       const res = await usersAPI.isFollowed(userId)
-      dispatch(setAppStatus('idle'))
       return res.data
     } catch (e) {
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
