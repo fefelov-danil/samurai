@@ -107,7 +107,6 @@ export const changePhoto = createAsyncThunk('profile/changePhoto',
     try {
       const res = await profileApi.changePhoto({image: photo})
       if (res.data.resultCode === 0) {
-        console.log(res.data)
         return res.data
       } else {
         serverError(dispatch, res.data.messages[0])

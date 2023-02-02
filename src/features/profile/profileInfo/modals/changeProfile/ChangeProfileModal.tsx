@@ -82,7 +82,6 @@ export const ChangeProfileModal: FC<ChangeProfileModalPropsType> = ({
       lookingForAJob: data.lookingForAJob,
       lookingForAJobDescription: data.lookingForAJobDescription ? data.lookingForAJobDescription : null,
     }))
-    console.log(res)
     setOpenChangeModal(false)
   }
 
