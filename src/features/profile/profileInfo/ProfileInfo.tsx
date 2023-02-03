@@ -1,4 +1,4 @@
-import React, {FC, ReactNode, useEffect, useState} from 'react';
+import React, {FC, ReactNode, useEffect} from 'react';
 import s from './ProfileInfo.module.css'
 import defaultAva from 'assets/images/ava.png'
 import {
@@ -15,7 +15,7 @@ import {SelectPhotoModal} from "features/profile/profileInfo/modals/selectPhoto/
 import {ProfileDataType, ProfileStatusType} from "api/profileApi/types";
 import {Button} from "common/button/Button";
 import {useAppDispatch, useAppSelector} from "utils/hooks";
-import {followToUser, isFollowed, unFollowToUser} from "redux/reducers/users-reducer";
+import {clearProfile, followToUser, unFollowToUser} from "redux/reducers/users-reducer";
 
 type ProfileInfoPropsType = {
   myOrUserProfile: 'my' | 'user'
@@ -39,8 +39,9 @@ export const ProfileInfo: FC<ProfileInfoPropsType> = ({
   const jobStatusDesc = profile.lookingForAJobDescription ? profile.lookingForAJobDescription : ''
 
   useEffect(() => {
-    if (user?.userId) {
-      dispatch(isFollowed(user.userId))
+
+    return () => {
+      dispatch(clearProfile())
     }
   }, [])
 
@@ -81,7 +82,7 @@ export const ProfileInfo: FC<ProfileInfoPropsType> = ({
             className={s.profileAva}/>
           <span className={jobStatus ? s.jobStatusTrue : s.jobStatusFalse}>#OpenToWork</span>
         </div>
-        {user !== undefined &&
+        {myOrUserProfile === 'user' && user !== undefined &&
             <Button className={s.followBtn} onClick={followedHandler}>
               {user.isFollowed ? 'Unfollow' : 'Follow'}
             </Button>

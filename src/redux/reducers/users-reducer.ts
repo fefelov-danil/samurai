@@ -5,6 +5,7 @@ import {AxiosError} from "axios";
 import {usersAPI} from "api/uaersApi/users-api";
 import {profileApi} from "api/profileApi/profile-api";
 import {setLoading} from "redux/reducers/app-reducer";
+import {ProfileDataType} from "api/profileApi/types";
 
 export const getUsers = createAsyncThunk('users/getUsers',
   async (params: GetUsersParametersType, {dispatch, rejectWithValue}) => {
@@ -36,6 +37,7 @@ export const getUserProfile = createAsyncThunk('users/getUserProfile',
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
       return rejectWithValue(null)
     } finally {
+      dispatch(isFollowed(id))
       dispatch(setLoading(false))
     }
   })
@@ -109,7 +111,14 @@ export const unFollowToUser = createAsyncThunk('users/unFollowToUser',
 const sliceUsers = createSlice({
   name: 'users',
   initialState: {} as UsersInitialState,
-  reducers: {},
+  reducers: {
+    clearUsers(state) {
+      state.items = []
+    },
+    clearProfile(state) {
+      state.userProfile = {} as ProfileDataType
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(getUsers.fulfilled, (state, action) => {
       state.totalCount = action.payload.totalCount
@@ -127,19 +136,22 @@ const sliceUsers = createSlice({
     builder.addCase(followToUser.fulfilled, (state, action) => {
       if (state.userProfile.userId === action.payload) {
         state.userProfile.isFollowed = true
+      } else {
+        const index = state.items?.findIndex(item => item.id === action.payload)
+        state.items[index].followed = true
       }
-      const index = state.items?.findIndex(item => item.id === action.payload)
-      state.items[index].followed = true
     })
     builder.addCase(unFollowToUser.fulfilled, (state, action) => {
       if (state.userProfile.userId === action.payload) {
         state.userProfile.isFollowed = false
+      } else {
+        const index = state.items?.findIndex(item => item.id === action.payload)
+        state.items[index].followed = false
       }
-      const index = state.items?.findIndex(item => item.id === action.payload)
-      state.items[index].followed = false
     })
   }
 })
 
 export const usersReducer = sliceUsers.reducer
+export const {clearUsers, clearProfile} = sliceUsers.actions
 

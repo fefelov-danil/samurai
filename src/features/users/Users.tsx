@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import s from 'features/users/Users.module.css'
 import {useAppDispatch, useAppSelector} from "utils/hooks";
-import {getUsers} from "redux/reducers/users-reducer";
+import {clearUsers, getUsers} from "redux/reducers/users-reducer";
 import {User} from "features/users/user/User";
 
 export const Users = () => {
@@ -10,6 +10,10 @@ export const Users = () => {
 
   useEffect(() => {
     dispatch(getUsers({count: 50, page: 5, term: '', friend: false}))
+
+    return () => {
+      dispatch(clearUsers())
+    }
   }, [])
 
   return (
