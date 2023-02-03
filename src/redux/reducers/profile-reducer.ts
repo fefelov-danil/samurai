@@ -3,8 +3,8 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {profileApi} from "api/profileApi/profile-api";
 import {AxiosError} from "axios";
 import {networkError, serverError} from "utils/error-utils";
-import {setAppStatus} from "redux/reducers/app-reducer";
 import {ProfileDataType, ProfileStatusType, ValuesLoginType} from "api/profileApi/types";
+import {setLoading} from "redux/reducers/app-reducer";
 
 export const authMe = createAsyncThunk('profile/authMe', async () => {
   const res = await profileApi.authMe()
@@ -17,7 +17,7 @@ export const authMe = createAsyncThunk('profile/authMe', async () => {
 
 export const login = createAsyncThunk('profile/login',
   async (values: ValuesLoginType, {dispatch, rejectWithValue}) => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setLoading(true))
     try {
       const res = await profileApi.login(values)
       if (res.data.resultCode === 0) {
@@ -30,13 +30,13 @@ export const login = createAsyncThunk('profile/login',
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
       return rejectWithValue(null)
     } finally {
-      dispatch(setAppStatus('idle'))
+      dispatch(setLoading(false))
     }
   })
 
 export const getProfile = createAsyncThunk('profile/getProfile',
   async (myId: number, {dispatch, rejectWithValue}) => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setLoading(true))
     try {
       const res = await profileApi.getProfile(myId)
       return res.data
@@ -44,13 +44,13 @@ export const getProfile = createAsyncThunk('profile/getProfile',
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
       return rejectWithValue(null)
     } finally {
-      dispatch(setAppStatus('idle'))
+      dispatch(setLoading(false))
     }
   })
 
 export const changeProfile = createAsyncThunk('profile/changeProfile',
   async (profile: ProfileDataType, {dispatch, rejectWithValue}) => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setLoading(true))
     try {
       const res = await profileApi.changeProfile(profile)
       if (res.data.resultCode === 0 && profile.userId) {
@@ -64,13 +64,13 @@ export const changeProfile = createAsyncThunk('profile/changeProfile',
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
       return rejectWithValue(null)
     } finally {
-      dispatch(setAppStatus('idle'))
+      dispatch(setLoading(false))
     }
   })
 
 export const getProfileStatus = createAsyncThunk('profile/getStatus',
   async (myId: number, {dispatch, rejectWithValue}) => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setLoading(true))
     try {
       const res = await profileApi.getStatus(myId)
       return res.data
@@ -78,13 +78,13 @@ export const getProfileStatus = createAsyncThunk('profile/getStatus',
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
       return rejectWithValue(null)
     } finally {
-      dispatch(setAppStatus('idle'))
+      dispatch(setLoading(false))
     }
   })
 
 export const logout = createAsyncThunk('profile/logout',
   async (_, {dispatch, rejectWithValue}) => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setLoading(true))
     try {
       const res = await profileApi.logout()
       if (res.data.resultCode === 0) {
@@ -97,13 +97,13 @@ export const logout = createAsyncThunk('profile/logout',
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
       return rejectWithValue(null)
     } finally {
-      dispatch(setAppStatus('idle'))
+      dispatch(setLoading(false))
     }
   })
 
 export const changePhoto = createAsyncThunk('profile/changePhoto',
   async (photo: File, {dispatch, rejectWithValue}) => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setLoading(true))
     try {
       const res = await profileApi.changePhoto({image: photo})
       if (res.data.resultCode === 0) {
@@ -116,7 +116,7 @@ export const changePhoto = createAsyncThunk('profile/changePhoto',
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
       return rejectWithValue(null)
     } finally {
-      dispatch(setAppStatus('idle'))
+      dispatch(setLoading(false))
     }
 })
 

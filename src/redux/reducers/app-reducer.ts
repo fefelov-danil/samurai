@@ -3,12 +3,16 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 export const sliceApp = createSlice({
   name: 'app',
   initialState: {
-    appStatus: 'total loading' as AppStatusType,
+    appLoading: true,
+    loading: false,
     appAlert: { message: null, type: null } as AppAlertType,
   },
   reducers: {
-    setAppStatus(state, action: PayloadAction<AppStatusType>) {
-      state.appStatus = action.payload
+    setAppLoading(state, action: PayloadAction<boolean>) {
+      state.appLoading = action.payload
+    },
+    setLoading(state, action: PayloadAction<boolean>) {
+      state.loading = action.payload
     },
     setAppAlert(state, action: PayloadAction<AppAlertType>) {
       state.appAlert = action.payload
@@ -17,11 +21,9 @@ export const sliceApp = createSlice({
 })
 
 export const appReducer = sliceApp.reducer
-export const {setAppStatus, setAppAlert} = sliceApp.actions
-
+export const {setAppLoading, setLoading, setAppAlert} = sliceApp.actions
 
 //-------------- TYPES --------------\\
 
-type AppStatusType = 'total loading' | 'loading' | 'idle'
 type AppAlertType = { message: null | string; type: AlertType }
 export type AlertType = null | 'error' | 'success'

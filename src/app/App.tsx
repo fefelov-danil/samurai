@@ -7,32 +7,31 @@ import {Pages} from "common/routes/Pages";
 import {useAppDispatch, useAppSelector} from "utils/hooks";
 import {authMe, getProfile} from "redux/reducers/profile-reducer";
 import {Alert} from "common/alert/Alert";
-import {setAppStatus} from "redux/reducers/app-reducer";
+import {setAppLoading} from "redux/reducers/app-reducer";
 
 export const App = () => {
   const dispatch = useAppDispatch()
-  const appStatus = useAppSelector(state => state.app.appStatus)
+  const appLoading = useAppSelector(state => state.app.appLoading)
   const isLoggedIn = useAppSelector(state => state.profile.isLoggedIn)
-  const profile = useAppSelector(state => state.profile.profileData)
+  const profileId = useAppSelector(state => state.profile.profileData.userId)
 
   useEffect(() => {
     dispatch(authMe())
-      .then(() => dispatch(setAppStatus('idle')))
+      .then(() => dispatch(setAppLoading(false)))
   }, [])
 
   useEffect(() => {
-    if (isLoggedIn && profile.userId) {
-      dispatch(getProfile(profile.userId))
+    if (isLoggedIn && profileId) {
+      dispatch(getProfile(profileId))
     }
   }, [isLoggedIn])
 
-  if (appStatus === 'total loading') {
+  if (appLoading) {
     return <h1>loading</h1>
   }
 
   return (
     <div className="app-wrapper">
-      {appStatus === 'loading' && <h1 style={{position: 'absolute'}}>loading</h1>}
       {isLoggedIn && (
         <>
           <Header/>

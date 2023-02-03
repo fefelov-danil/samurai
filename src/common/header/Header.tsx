@@ -8,9 +8,9 @@ import {PATHS} from "common/routes/Pages";
 import {FiLogOut} from "react-icons/fi";
 import {logout} from "redux/reducers/profile-reducer";
 
-
 export const Header = () => {
   const dispatch = useAppDispatch()
+  const loading = useAppSelector(state => state.app.loading)
   const profile = useAppSelector(state => state.profile.profileData)
 
   const name = profile.fullName ? profile.fullName : ''
@@ -22,6 +22,11 @@ export const Header = () => {
 
   return (
     <header className={s.header}>
+      {loading &&
+          <div className={s.loading}>
+              <p>loading</p>
+          </div>
+      }
       <NavLink className={s.logo} to={PATHS.NEWS}>
         <img src={logo} alt="logo"/>
       </NavLink>

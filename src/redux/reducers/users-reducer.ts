@@ -1,14 +1,14 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {setAppStatus} from "redux/reducers/app-reducer";
 import {GetUsersParametersType, UsersInitialState} from "api/uaersApi/types";
 import {networkError, serverError} from "utils/error-utils";
 import {AxiosError} from "axios";
 import {usersAPI} from "api/uaersApi/users-api";
 import {profileApi} from "api/profileApi/profile-api";
+import {setLoading} from "redux/reducers/app-reducer";
 
 export const getUsers = createAsyncThunk('users/getUsers',
   async (params: GetUsersParametersType, {dispatch, rejectWithValue}) => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setLoading(true))
     try {
       const res = await usersAPI.getUsers(params)
       if (res.data.error === null) {
@@ -21,13 +21,13 @@ export const getUsers = createAsyncThunk('users/getUsers',
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
       return rejectWithValue(null)
     } finally {
-      dispatch(setAppStatus('idle'))
+      dispatch(setLoading(false))
     }
 })
 
 export const getUserProfile = createAsyncThunk('users/getUserProfile',
   async (id: number, {dispatch, rejectWithValue}) => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setLoading(true))
     try {
       const res = await profileApi.getProfile(id)
       await dispatch(getUserProfileStatus(id))
@@ -36,13 +36,13 @@ export const getUserProfile = createAsyncThunk('users/getUserProfile',
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
       return rejectWithValue(null)
     } finally {
-      dispatch(setAppStatus('idle'))
+      dispatch(setLoading(false))
     }
   })
 
 export const getUserProfileStatus = createAsyncThunk('users/getUserProfileStatus',
   async (myId: number, {dispatch, rejectWithValue}) => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setLoading(true))
     try {
       const res = await profileApi.getStatus(myId)
       return res.data
@@ -50,13 +50,13 @@ export const getUserProfileStatus = createAsyncThunk('users/getUserProfileStatus
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
       return rejectWithValue(null)
     } finally {
-      dispatch(setAppStatus('idle'))
+      dispatch(setLoading(false))
     }
   })
 
 export const isFollowed = createAsyncThunk('users/isFollowed',
   async (userId: number, {dispatch, rejectWithValue}) => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setLoading(true))
     try {
       const res = await usersAPI.isFollowed(userId)
       return res.data
@@ -64,13 +64,13 @@ export const isFollowed = createAsyncThunk('users/isFollowed',
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
       return rejectWithValue(null)
     } finally {
-      dispatch(setAppStatus('idle'))
+      dispatch(setLoading(false))
     }
   })
 
 export const followToUser = createAsyncThunk('users/followToUser',
   async (userId: number, {dispatch, rejectWithValue}) => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setLoading(true))
     try {
       const res = await usersAPI.follow(userId)
       if (res.data.resultCode === 0) {
@@ -83,13 +83,13 @@ export const followToUser = createAsyncThunk('users/followToUser',
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
       return rejectWithValue(null)
     } finally {
-      dispatch(setAppStatus('idle'))
+      dispatch(setLoading(false))
     }
 })
 
 export const unFollowToUser = createAsyncThunk('users/unFollowToUser',
   async (userId: number, {dispatch, rejectWithValue}) => {
-    dispatch(setAppStatus('loading'))
+    dispatch(setLoading(true))
     try {
       const res = await usersAPI.unFollow(userId)
       if (res.data.resultCode === 0) {
@@ -102,7 +102,7 @@ export const unFollowToUser = createAsyncThunk('users/unFollowToUser',
       networkError(e as Error | AxiosError<{ error: string }>, dispatch)
       return rejectWithValue(null)
     } finally {
-      dispatch(setAppStatus('idle'))
+      dispatch(setLoading(false))
     }
   })
 
