@@ -1,0 +1,26 @@
+.allOrFriends {
+  display: flex;
+  width: max-content;
+  background: #fff;
+  overflow: hidden;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+}
+
+.allOrFriends .col {
+  padding: 6px 25px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.onlyFriends .friends {
+  background: #B6D65C;
+}
+
+.allUsers .all {
+  background: #B6D65C;
+}
