@@ -1,12 +1,12 @@
 .allOrFriends {
   display: flex;
-  width: max-content;
+  width: 295px;
   background: #fff;
   overflow: hidden;
   border: 1px solid #dedede;
   border-radius: 5px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-  margin-bottom: 30px;
+  margin-right: 20px;
 }
 
 .allOrFriends .col {
