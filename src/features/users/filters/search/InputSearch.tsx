@@ -1,28 +1,36 @@
-import React, {ChangeEvent, DetailedHTMLProps, FC, InputHTMLAttributes, useState} from 'react';
+import React, {ChangeEvent, DetailedHTMLProps, FC, InputHTMLAttributes, useEffect, useState} from 'react';
 import s from './InputSearch.module.css'
+import {useDebounce} from "utils/hooks/useDebounce";
+import {BiSearch} from "react-icons/bi";
 
 type DefaultInputTextPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 type InputSearchPropsType = DefaultInputTextPropsType & {
-  changeSearchInputValue: (value: string) => void
+  changeInputSearchValue: (value: string) => void
 }
 
-export const InputSearch: FC<InputSearchPropsType> = ({changeSearchInputValue, ...restProps}) => {
+export const InputSearch: FC<InputSearchPropsType> = ({changeInputSearchValue, className, ...restProps}) => {
   const [value, setValue] = useState<string>('')
+  const debouncedValue = useDebounce<string>(value, 700)
+
+  useEffect(() => {
+    changeInputSearchValue(value)
+  }, [debouncedValue])
 
   const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value)
   }
 
   return (
-    <div>
+    <p className={s.inputContainer}>
+      <BiSearch />
       <input
         value={value}
         type={'text'}
         onChange={onChangeCallback}
-        className={s.inputSearch}
+        className={`${s.inputSearch} ${className}`}
         {...restProps}
       />
-    </div>
+    </p>
   );
 };
