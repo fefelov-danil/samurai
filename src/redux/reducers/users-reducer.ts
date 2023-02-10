@@ -134,7 +134,7 @@ const sliceUsers = createSlice({
       state.userProfile.isFollowed = action.payload
     })
     builder.addCase(followToUser.fulfilled, (state, action) => {
-      if (state.userProfile.userId === action.payload) {
+      if (state.userProfile && state.userProfile.userId === action.payload) {
         state.userProfile.isFollowed = true
       } else {
         const index = state.items?.findIndex(item => item.id === action.payload)
@@ -142,7 +142,7 @@ const sliceUsers = createSlice({
       }
     })
     builder.addCase(unFollowToUser.fulfilled, (state, action) => {
-      if (state.userProfile.userId === action.payload) {
+      if (state.userProfile && state.userProfile.userId === action.payload) {
         state.userProfile.isFollowed = false
       } else {
         const index = state.items?.findIndex(item => item.id === action.payload)
