@@ -1,3 +1,18 @@
 .users h1 {
+  margin-bottom: 25px;
+}
+
+.userColumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.filters {
+  display: flex;
   margin-bottom: 40px;
+}
+
+.inpSearch {
+  display: block;
 }
