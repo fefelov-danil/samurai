@@ -20,6 +20,7 @@ export const Pagination: FC<PaginationPropsType> = ({
   const quantityPages = Math.ceil(totalCount / countItemsPerPage)
 
   const changeItemsPerPageHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+    changeCurrentPage(1)
     changeCountItemsPerPage(+e.currentTarget.value)
   }
 
@@ -37,7 +38,7 @@ export const Pagination: FC<PaginationPropsType> = ({
         </select>
       </div>
       <button
-        className={s.prev}
+        className={s.prevNext}
         onClick={() => changePageHandler(currentPage - 1)}
         disabled={currentPage === 1}>
         <MdOutlineArrowBackIosNew />
@@ -50,7 +51,7 @@ export const Pagination: FC<PaginationPropsType> = ({
           quantityPages={quantityPages} />
       </div>
       <button
-        className={s.prev}
+        className={s.prevNext}
         onClick={() => changePageHandler(currentPage + 1)}
         disabled={currentPage === quantityPages}>
         <MdOutlineArrowForwardIos />
