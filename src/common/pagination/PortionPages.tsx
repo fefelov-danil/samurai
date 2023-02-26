@@ -2,14 +2,12 @@ import React, {FC} from 'react';
 import s from "./Pagination.module.css";
 
 type PortionPagesPropsType = {
-  totalCount: number
   currentPage: number
   changeCurrentPage: (page: number) => void
   quantityPages: number
 }
 
 export const PortionPages: FC<PortionPagesPropsType> = ({
-                                                          totalCount,
                                                           currentPage,
                                                           changeCurrentPage,
                                                           quantityPages
@@ -19,8 +17,6 @@ export const PortionPages: FC<PortionPagesPropsType> = ({
   for (let i = 1; i <= quantityPages; i++) {
     pages.push(i)
   }
-
-  if (totalCount === undefined) return <>111</>
 
   if (pages.length <= 6) {
     return (

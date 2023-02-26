@@ -1,7 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import s from 'features/users/Users.module.css'
 import {useAppDispatch, useAppSelector} from "utils/hooks";
-import {clearUsers, getUsers} from "redux/reducers/users-reducer";
+import {
+  changeCountItemsPerPage,
+  changeCurrentPage,
+  changeIsFriends, changeSearchValue,
+  clearUsers,
+  getUsers
+} from "redux/reducers/users-reducer";
 import {User} from "features/users/user/User";
 import {AllOrFriends} from "features/users/filters/all-or-friends/AllOrFriends";
 import {InputSearch} from "features/users/filters/search/InputSearch";
@@ -11,11 +17,10 @@ export const Users = () => {
   const dispatch = useAppDispatch()
   const users = useAppSelector(state => state.users.items)
   const totalCount = useAppSelector(state => state.users.totalCount)
-
-  const [isFriends, setIsFriends] = useState(true)
-  const [searchValue, setSearchValue] = useState('')
-  const [page, setPage] = useState(1)
-  const [count, setCount] = useState(16)
+  const page = useAppSelector(state => state.users.currentPage)
+  const count = useAppSelector(state => state.users.countItemsPerPage)
+  const isFriends = useAppSelector(state => state.users.isFriends)
+  const searchValue = useAppSelector(state => state.users.searchValue)
 
   useEffect(() => {
     dispatch(getUsers({count: count, page: page, term: searchValue, friend: isFriends}))
@@ -26,21 +31,21 @@ export const Users = () => {
   }, [isFriends, searchValue, page, count])
 
   const switchUsers = (isFriends: boolean) => {
-    setIsFriends(isFriends)
-    setPage(1)
-    setCount(16)
+    dispatch(changeIsFriends(isFriends))
+    dispatch(changeCurrentPage(1))
+    dispatch(changeCountItemsPerPage(16))
   }
 
   const changeInputSearch = (value: string) => {
-    setSearchValue(value)
+    dispatch(changeSearchValue(value))
   }
 
-  const changeCountItemsPerPage = (items: number) => {
-    setCount(items)
+  const changeCountItemsPerPageHandler = (items: number) => {
+    dispatch(changeCountItemsPerPage(items))
   }
 
-  const changeCurrentPage = (page: number) => {
-    setPage(page)
+  const changeCurrentPageHandler = (page: number) => {
+    dispatch(changeCurrentPage(page))
   }
 
   return (
@@ -59,9 +64,9 @@ export const Users = () => {
       <Pagination
         currentPage={page}
         countItemsPerPage={count}
-        changeCountItemsPerPage={changeCountItemsPerPage}
+        changeCountItemsPerPage={changeCountItemsPerPageHandler}
         totalCount={totalCount}
-        changeCurrentPage={changeCurrentPage} />
+        changeCurrentPage={changeCurrentPageHandler} />
     </div>
   );
 };

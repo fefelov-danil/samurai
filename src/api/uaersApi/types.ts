@@ -2,10 +2,14 @@ import {PhotosType, ProfileDataType} from "api/profileApi/types";
 
 export type UsersInitialState = {
   items: UserType[]
-  totalCount: number
-  error: string
+  error: undefined | string
   userProfile: ProfileDataType
   userStatus: string | null
+  isFriends: boolean
+  totalCount: undefined | number
+  countItemsPerPage: number
+  currentPage: number
+  searchValue: string
 }
 
 export type GetUsersParametersType = {

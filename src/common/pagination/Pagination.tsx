@@ -7,7 +7,7 @@ type PaginationPropsType = {
   currentPage: number
   countItemsPerPage: number
   changeCountItemsPerPage: (items: number) => void
-  totalCount: number
+  totalCount: number | undefined
   changeCurrentPage: (page: number) => void
 }
 
@@ -17,6 +17,8 @@ export const Pagination: FC<PaginationPropsType> = ({
                                                       changeCountItemsPerPage,
                                                       currentPage,
                                                       changeCurrentPage}) => {
+  if (totalCount === undefined) return <></>
+
   const quantityPages = Math.ceil(totalCount / countItemsPerPage)
 
   const changeItemsPerPageHandler = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -45,7 +47,6 @@ export const Pagination: FC<PaginationPropsType> = ({
       </button>
       <div className={s.portionPages}>
         <PortionPages
-          totalCount={totalCount}
           currentPage={currentPage}
           changeCurrentPage={changeCurrentPage}
           quantityPages={quantityPages} />

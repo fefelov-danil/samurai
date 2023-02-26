@@ -1,5 +1,5 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {GetUsersParametersType, UsersInitialState} from "api/uaersApi/types";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {GetUsersParametersType, UsersInitialState, UserType} from "api/uaersApi/types";
 import {networkError, serverError} from "utils/error-utils";
 import {AxiosError} from "axios";
 import {usersAPI} from "api/uaersApi/users-api";
@@ -24,7 +24,7 @@ export const getUsers = createAsyncThunk('users/getUsers',
     } finally {
       dispatch(setLoading(false))
     }
-})
+  })
 
 export const getUserProfile = createAsyncThunk('users/getUserProfile',
   async (id: number, {dispatch, rejectWithValue}) => {
@@ -87,7 +87,7 @@ export const followToUser = createAsyncThunk('users/followToUser',
     } finally {
       dispatch(setLoading(false))
     }
-})
+  })
 
 export const unFollowToUser = createAsyncThunk('users/unFollowToUser',
   async (userId: number, {dispatch, rejectWithValue}) => {
@@ -108,15 +108,39 @@ export const unFollowToUser = createAsyncThunk('users/unFollowToUser',
     }
   })
 
+const initialState: UsersInitialState = {
+  items: [] as UserType[],
+  error: undefined as undefined | string,
+  userProfile: {} as ProfileDataType,
+  userStatus: null as string | null,
+  isFriends: true,
+  totalCount: undefined as undefined | number,
+  countItemsPerPage: 16,
+  currentPage: 1,
+  searchValue: ''
+}
+
 const sliceUsers = createSlice({
   name: 'users',
-  initialState: {} as UsersInitialState,
+  initialState: initialState,
   reducers: {
     clearUsers(state) {
       state.items = []
     },
     clearProfile(state) {
       state.userProfile = {} as ProfileDataType
+    },
+    changeCurrentPage(state, action: PayloadAction<number>) {
+      state.currentPage = action.payload
+    },
+    changeCountItemsPerPage(state, action: PayloadAction<number>) {
+      state.countItemsPerPage = action.payload
+    },
+    changeIsFriends(state, action: PayloadAction<boolean>) {
+      state.isFriends = action.payload
+    },
+    changeSearchValue(state, action: PayloadAction<string>) {
+      state.searchValue = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -153,5 +177,12 @@ const sliceUsers = createSlice({
 })
 
 export const usersReducer = sliceUsers.reducer
-export const {clearUsers, clearProfile} = sliceUsers.actions
+export const {
+  clearUsers,
+  clearProfile,
+  changeCurrentPage,
+  changeCountItemsPerPage,
+  changeIsFriends,
+  changeSearchValue
+} = sliceUsers.actions
 
