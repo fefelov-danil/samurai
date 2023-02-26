@@ -1,0 +1,45 @@
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  width: 100%;
+  margin-top: 20px;
+}
+
+.portionPages {
+  display: flex;
+  align-items: center;
+}
+
+.portionPages button.active {
+  color: red;
+  pointer-events: none;
+}
+
+.portionPages span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 26px;
+  height: 26px;
+  margin: 0 1px;
+
+  font-size: 16px;
+  list-style: none;
+
+  background-color: transparent;
+  border: 0;
+  border-radius: 50%;
+}
+
+.portionPages span:hover {
+  background: #D7D7D7;
+}
+
+.portionPages span.active {
+  color: #fff;
+  background: #FF0808;
+}
+
