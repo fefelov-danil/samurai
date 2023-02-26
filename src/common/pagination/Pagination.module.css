@@ -7,39 +7,42 @@
   margin-top: 20px;
 }
 
+.pagination button {
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.itemsPerPage {
+  margin-right: 10px;
+}
+
+.pagination .prevNext {
+  padding: 5px 3px 2px 3px;
+}
+
+.pagination .prevNext:hover {
+  color: #FF0808;
+}
+
 .portionPages {
   display: flex;
   align-items: center;
 }
 
+.portionPages button {
+  padding: 3px 7px 1px 7px;
+  margin: 0 1px;
+}
+
+.portionPages button:hover {
+  background: #dcdcdc;
+  border-radius: 5px;
+}
+
 .portionPages button.active {
-  color: red;
+  background: #FF0808;
+  border-radius: 5px;
+  color: #fff;
   pointer-events: none;
 }
-
-.portionPages span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 26px;
-  height: 26px;
-  margin: 0 1px;
-
-  font-size: 16px;
-  list-style: none;
-
-  background-color: transparent;
-  border: 0;
-  border-radius: 50%;
-}
-
-.portionPages span:hover {
-  background: #D7D7D7;
-}
-
-.portionPages span.active {
-  color: #fff;
-  background: #FF0808;
-}
-
