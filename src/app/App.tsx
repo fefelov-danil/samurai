@@ -8,6 +8,7 @@ import {useAppDispatch, useAppSelector} from "utils/hooks";
 import {authMe, getProfile} from "redux/reducers/profile-reducer";
 import {Alert} from "common/alert/Alert";
 import {setAppLoading} from "redux/reducers/app-reducer";
+import {Loader} from "../common/loading/Loader";
 
 export const App = () => {
   const dispatch = useAppDispatch()
@@ -27,7 +28,7 @@ export const App = () => {
   }, [isLoggedIn])
 
   if (appLoading) {
-    return <h1>loading</h1>
+    return <Loader />
   }
 
   return (

@@ -7,6 +7,7 @@ import {NavLink} from "react-router-dom";
 import {PATHS} from "common/routes/Pages";
 import {FiLogOut} from "react-icons/fi";
 import {logout} from "redux/reducers/profile-reducer";
+import {Loader} from "../loading/Loader";
 
 export const Header = () => {
   const dispatch = useAppDispatch()
@@ -24,7 +25,7 @@ export const Header = () => {
     <header className={s.header}>
       {loading &&
           <div className={s.loading}>
-              <p>loading</p>
+              <Loader />
           </div>
       }
       <NavLink className={s.logo} to={PATHS.NEWS}>

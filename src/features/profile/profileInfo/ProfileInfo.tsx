@@ -16,6 +16,7 @@ import {ProfileDataType, ProfileStatusType} from "api/profileApi/types";
 import {Button} from "common/button/Button";
 import {useAppDispatch, useAppSelector} from "utils/hooks";
 import {clearProfile, followToUser, unFollowToUser} from "redux/reducers/users-reducer";
+import {Loader} from "../../../common/loading/Loader";
 
 type ProfileInfoPropsType = {
   myOrUserProfile: 'my' | 'user'
@@ -68,7 +69,7 @@ export const ProfileInfo: FC<ProfileInfoPropsType> = ({
   }
 
   if (!contacts) {
-    return <h1>Loading2...</h1>
+    return <Loader />
   }
 
   return (

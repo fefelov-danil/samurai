@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "utils/hooks";
 import {getUserProfile} from "redux/reducers/users-reducer";
 import {ProfileInfo} from "features/profile/profileInfo/ProfileInfo";
+import {Loader} from "../../../common/loading/Loader";
 
 export const PageUser = () => {
   const dispatch = useAppDispatch()
@@ -17,7 +18,7 @@ export const PageUser = () => {
   }, [id])
 
   if (!userProfile?.fullName) {
-    return <h1>Loading...</h1>
+    return <Loader />
   }
 
   return (
