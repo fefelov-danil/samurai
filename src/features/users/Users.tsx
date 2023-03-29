@@ -23,7 +23,7 @@ export const Users = () => {
   const searchValue = useAppSelector(state => state.users.searchValue)
 
   useEffect(() => {
-    dispatch(getUsers({count: count, page: page, term: searchValue, friend: isFriends}))
+    dispatch(getUsers({count, page, term: searchValue, friend: isFriends}))
 
     return () => {
       dispatch(clearUsers())

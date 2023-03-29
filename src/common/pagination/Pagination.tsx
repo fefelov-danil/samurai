@@ -2,6 +2,7 @@ import React, {ChangeEvent, FC} from 'react';
 import s from './Pagination.module.css'
 import {MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos} from "react-icons/md";
 import {PortionPages} from "common/pagination/PortionPages";
+import {useAppSelector} from "../../utils/hooks";
 
 type PaginationPropsType = {
   currentPage: number
@@ -17,7 +18,9 @@ export const Pagination: FC<PaginationPropsType> = ({
                                                       changeCountItemsPerPage,
                                                       currentPage,
                                                       changeCurrentPage}) => {
-  if (totalCount === undefined) return <></>
+  const loading = useAppSelector(state => state.app.loading)
+
+  if (totalCount === undefined) return null
 
   const quantityPages = Math.ceil(totalCount / countItemsPerPage)
 
@@ -32,7 +35,7 @@ export const Pagination: FC<PaginationPropsType> = ({
 
   return (
     <div className={s.pagination}>
-      <div className={s.itemsPerPage}>
+      <div className={loading ? `${s.itemsPerPage} ${s.disable}` : s.itemsPerPage}>
         <select value={countItemsPerPage} onChange={(e) => changeItemsPerPageHandler(e)}>
           <option value={16}>16</option>
           <option value={30}>30</option>
@@ -42,7 +45,7 @@ export const Pagination: FC<PaginationPropsType> = ({
       <button
         className={s.prevNext}
         onClick={() => changePageHandler(currentPage - 1)}
-        disabled={currentPage === 1}>
+        disabled={currentPage === 1 || loading}>
         <MdOutlineArrowBackIosNew />
       </button>
       <div className={s.portionPages}>
@@ -54,7 +57,7 @@ export const Pagination: FC<PaginationPropsType> = ({
       <button
         className={s.prevNext}
         onClick={() => changePageHandler(currentPage + 1)}
-        disabled={currentPage === quantityPages}>
+        disabled={currentPage === quantityPages || loading}>
         <MdOutlineArrowForwardIos />
       </button>
     </div>

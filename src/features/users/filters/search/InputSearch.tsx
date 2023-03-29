@@ -2,6 +2,7 @@ import React, {ChangeEvent, DetailedHTMLProps, FC, InputHTMLAttributes, useEffec
 import s from './InputSearch.module.css'
 import {useDebounce} from "utils/hooks/useDebounce";
 import {BiSearch} from "react-icons/bi";
+import {useAppSelector} from "../../../../utils/hooks";
 
 type DefaultInputTextPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
@@ -10,6 +11,7 @@ type InputSearchPropsType = DefaultInputTextPropsType & {
 }
 
 export const InputSearch: FC<InputSearchPropsType> = ({changeInputSearchValue, className, ...restProps}) => {
+  const loading = useAppSelector(state => state.app.loading)
   const [value, setValue] = useState<string>('')
   const debouncedValue = useDebounce<string>(value, 700)
 
@@ -27,6 +29,7 @@ export const InputSearch: FC<InputSearchPropsType> = ({changeInputSearchValue, c
       <input
         value={value}
         type={'text'}
+        disabled={loading}
         onChange={onChangeCallback}
         className={`${s.inputSearch} ${className}`}
         {...restProps}

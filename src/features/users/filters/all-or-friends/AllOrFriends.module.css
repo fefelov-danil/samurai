@@ -17,6 +17,10 @@
   cursor: pointer;
 }
 
+.allOrFriends .col.disable {
+  pointer-events: none;
+}
+
 .onlyFriends .friends {
   background: #B6D65C;
 }

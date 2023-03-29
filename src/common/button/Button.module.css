@@ -17,7 +17,7 @@
 }
 
 .button:disabled {
-  background: #5c5c5c !important;
+  opacity: 0.4;
 }
 
 @media (max-width: 800px) {

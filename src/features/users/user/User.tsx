@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import s from './User.module.css'
-import {useAppDispatch} from "utils/hooks";
+import {useAppDispatch, useAppSelector} from "utils/hooks";
 import {Button} from "common/button/Button";
 import {UserType} from "api/uaersApi/types";
 import defaultAva from 'assets/images/ava.png'
@@ -14,6 +14,7 @@ type UserPropsType = {
 
 export const User: FC<UserPropsType> = ({user}) => {
   const dispatch = useAppDispatch()
+  const loading = useAppSelector(state => state.app.loading)
 
   const avatar = user.photos.large ? user.photos.large : defaultAva
 
@@ -26,7 +27,7 @@ export const User: FC<UserPropsType> = ({user}) => {
       <div className={s.avatarAndFollow}>
         <div className={s.avatar} style={{backgroundImage: `url('${avatar}')`}}>
         </div>
-        <Button className={s.followBtn} onClick={followHandler}>
+        <Button disabled={loading} className={s.followBtn} onClick={followHandler}>
           {user.followed ? 'Unfollow' : 'Follow'}
         </Button>
       </div>

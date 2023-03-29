@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import s from "./Pagination.module.css";
+import {useAppSelector} from "../../utils/hooks";
 
 type PortionPagesPropsType = {
   currentPage: number
@@ -12,6 +13,7 @@ export const PortionPages: FC<PortionPagesPropsType> = ({
                                                           changeCurrentPage,
                                                           quantityPages
                                                         }) => {
+  const loading = useAppSelector(state => state.app.loading)
   const pages = []
 
   for (let i = 1; i <= quantityPages; i++) {
@@ -25,6 +27,7 @@ export const PortionPages: FC<PortionPagesPropsType> = ({
           return <button
             key={page}
             className={page === currentPage ? s.active : ''}
+            disabled={loading}
             onClick={() => changeCurrentPage(page)}
           >{page}</button>
         })}
@@ -40,14 +43,16 @@ export const PortionPages: FC<PortionPagesPropsType> = ({
             <button
               key={page}
               className={page === currentPage ? s.active : ''}
+              disabled={loading}
               onClick={() => changeCurrentPage(page)}
-            >
-              {page}
-            </button>
+            >{page}</button>
           )
         })}
         <span className={s.dots}>...</span>
-        <button onClick={() => changeCurrentPage(quantityPages)}>{quantityPages}</button>
+        <button
+          disabled={loading}
+          onClick={() => changeCurrentPage(quantityPages)}
+        >{quantityPages}</button>
       </>
     )
   }
@@ -55,13 +60,17 @@ export const PortionPages: FC<PortionPagesPropsType> = ({
   if (currentPage >= quantityPages - 3) {
     return (
       <>
-        <button onClick={() => changeCurrentPage(1)}>{1}</button>
+        <button
+          disabled={loading}
+          onClick={() => changeCurrentPage(1)}
+        >{1}</button>
         <span className={s.dots}>...</span>
         {pages.slice(quantityPages - 5, quantityPages).map(page => {
           return (
             <button
               key={page}
               className={page === currentPage ? s.active : ''}
+              disabled={loading}
               onClick={() => changeCurrentPage(page)}
             >
               {page}
@@ -75,13 +84,17 @@ export const PortionPages: FC<PortionPagesPropsType> = ({
   if (currentPage > 4 && currentPage < quantityPages - 3) {
     return (
       <>
-        <button onClick={() => changeCurrentPage(1)}>{1}</button>
+        <button
+          disabled={loading}
+          onClick={() => changeCurrentPage(1)}
+        >{1}</button>
         <span className={s.dots}>...</span>
         {pages.slice(currentPage - 2, currentPage + 1).map(page => {
           return (
             <button
               key={page}
               className={page === currentPage ? s.active : ''}
+              disabled={loading}
               onClick={() => changeCurrentPage(page)}
             >
               {page}
@@ -89,10 +102,13 @@ export const PortionPages: FC<PortionPagesPropsType> = ({
           )
         })}
         <span className={s.dots}>...</span>
-        <button onClick={() => changeCurrentPage(quantityPages)}>{quantityPages}</button>
+        <button
+          disabled={loading}
+          onClick={() => changeCurrentPage(quantityPages)}
+        >{quantityPages}</button>
       </>
     )
   }
 
-  return <></>
+  return null
 };
