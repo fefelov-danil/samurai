@@ -35,7 +35,7 @@ export const App = () => {
     <div className="app-wrapper">
       {isLoggedIn && (
         <>
-          <Header/>1
+          <Header/>
           <Sidebar/>
         </>
       )}
